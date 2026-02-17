@@ -1,0 +1,117 @@
+.catecontainer {
+  padding: 40px;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 30px;
+}
+
+.header h1 {
+  font-size: 42px;
+  font-weight: 700;
+}
+
+.arrows {
+  display: flex;
+  gap: 14px;
+}
+
+.link{
+  text-decoration: none; 
+  color: inherit;  
+  cursor: pointer;
+}
+
+.arrowBtn {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  border: 1px solid #ddd;
+  background: #fff;
+  color: gray;
+  font-size: 18px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.arrowBtn:hover {
+  background: #000;
+  color: #fff;
+}
+
+/* Card styling */
+.card {
+  height: 280px;                 /* 🔥 reduced height */
+  background: #f3f3f3;
+  border-radius: 18px;
+  display: flex;
+  align-items: flex-start;       /* 🔥 move image up */
+  justify-content: center;
+  padding-top: 26px;             /* 🔥 control image position */
+  overflow: hidden;
+}
+
+/* Image */
+.card img {
+  width: 100%;
+  object-fit: contain;
+  transition: transform 0.4s ease;
+}
+
+/* Hover zoom (desktop only) */
+@media (hover: hover) {
+  .maincard:hover .card img {
+    transform: translateY(-6px) scale(1.08);
+  }
+}
+
+/* Text below image */
+.maincard p {
+  margin-top: 12px;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+/* 📱 Mobile Fix */
+@media (max-width: 480px) {
+  .catecontainer {
+    padding: 16px;
+  }
+
+  .header {
+    margin-bottom: 20px;
+  }
+
+  .header h1 {
+    font-size: 22px;
+  }
+
+  .arrows {
+    display: none; /* hide arrows on mobile */
+  }
+
+  .card {
+    height: 200px;
+    border-radius: 14px;
+  }
+
+  .card img {
+    height: 140px;
+  }
+
+  .maincard p {
+    font-size: 14px;
+    margin-top: 10px;
+    text-align: center;
+  }
+
+  .swiper-wrapper {
+    overflow-x: auto;
+    scroll-behavior: smooth;
+  }
+
+}
+

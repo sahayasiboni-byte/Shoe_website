@@ -1,0 +1,234 @@
+/* =========================
+   Wrapper
+========================= */
+.offerWrapper {
+  width: 100%;
+  padding: 24px 16px;
+  box-sizing: border-box;
+}
+
+/* =========================
+   Swiper
+========================= */
+.offerSwiper {
+  width: 100%;
+  position: relative;
+}
+
+.offerSwiper :global(.swiper-slide) {
+  display: flex;
+  justify-content: center;
+}
+
+/* =========================
+   Banner
+========================= */
+.banner {
+  position: relative;
+  width: 100%;
+  max-width: 1400px;
+
+  /* ✅ Correct height control */
+  aspect-ratio: 16 / 6.5;
+  height: auto;
+
+  border-radius: 18px;
+  overflow: hidden;
+}
+
+/* Banner image */
+.banner img {
+  width: 100%;
+  height: 100%;                 /* ✅ FIXED */
+  object-fit: cover;
+  filter: saturate(90%) contrast(95%);
+}
+
+/* Dark overlay */
+.overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    rgba(0, 0, 0, 0.55) 15%,
+    rgba(0, 0, 0, 0.25) 50%,
+    rgba(0, 0, 0, 0) 80%
+  );
+}
+
+/* =========================
+   Content
+========================= */
+.content {
+  position: absolute;
+  left: 60px;
+  top: 50%;
+  transform: translateY(-50%);
+
+  max-width: 480px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+
+  color: #ffffff;
+  font-family: "Poppins", sans-serif;
+}
+
+/* Badge */
+.badge {
+  width: fit-content;
+  background: #ffffff;
+  color: #000000;
+
+  font-size: 13px;
+  font-weight: 600;
+
+  padding: 6px 14px;
+  border-radius: 6px;
+}
+
+/* Title */
+.content h1 {
+  font-size: 58px;              /* 🔥 video-like */
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  line-height: 1.05;
+  margin: 6px 0 8px 0;
+}
+
+/* Subtitle */
+.content p {
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 1.4;
+  opacity: 0.95;
+  margin: 0;
+}
+
+/* =========================
+   Pagination (CENTER + SOFT)
+========================= */
+:global(.swiper-pagination) {
+  position: absolute;
+  bottom: 14px !important;
+  left: 50% !important;
+  transform: translateX(-50%);
+  z-index: 10;
+  width: auto !important;
+}
+
+:global(.swiper-pagination-bullets) {
+  background: rgba(255, 255, 255, 0.35);  /* ✅ lighter */
+  padding: 6px 12px;
+  border-radius: 20px;
+  display: inline-flex;
+  gap: 8px;
+}
+
+:global(.swiper-pagination-bullet) {
+  width: 7px;
+  height: 7px;
+  background: rgba(0, 0, 0, 0.35);
+  opacity: 1;
+}
+
+:global(.swiper-pagination-bullet-active) {
+  background: #000;
+  width: 9px;
+  height: 9px;
+}
+
+/* =========================
+   Mobile
+========================= */
+/* =========================
+   MOBILE FIX (FINAL)
+========================= */
+/* =========================
+   MOBILE FIX – CONTENT ON TOP
+========================= */
+@media (max-width: 479px) {
+
+  .offerWrapper {
+    padding: 16px 12px;
+  }
+
+  .banner {
+    aspect-ratio: 4 / 5;      /* tall mobile banner */
+    border-radius: 14px;
+  }
+
+  .banner img {
+    height: 100%;
+    object-fit: cover;
+  }
+
+  /* Overlay for readability (top-focused) */
+  .overlay {
+    background: linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 0.55) 0%,
+      rgba(0, 0, 0, 0.35) 35%,
+      rgba(0, 0, 0, 0.05) 70%
+    );
+  }
+
+  /* =========================
+     Content – TOP
+  ========================= */
+  .content {
+    left: 16px;
+    right: 16px;
+    top: 35px;                /* 🔥 CONTENT AT TOP */
+    bottom: auto;
+    transform: none;
+
+    max-width: 100%;
+    gap: 8px;
+  }
+
+  .badge {
+    font-size: 11px;
+    padding: 5px 10px;
+    border-radius: 5px;
+  }
+
+  .content h1 {
+    font-size: 30px;
+    font-weight: 800;
+    line-height: 1.1;
+    margin: 0;
+  }
+
+  .content p {
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 1.4;
+    opacity: 0.95;
+  }
+
+  /* =========================
+     Pagination
+  ========================= */
+  :global(.swiper-pagination) {
+    bottom: 12px !important;
+  }
+
+  :global(.swiper-pagination-bullets) {
+    background: rgba(255, 255, 255, 0.25);
+    padding: 5px 10px;
+    border-radius: 14px;
+    gap: 6px;
+  }
+
+  :global(.swiper-pagination-bullet) {
+    width: 6px;
+    height: 6px;
+  }
+
+  :global(.swiper-pagination-bullet-active) {
+    width: 8px;
+    height: 8px;
+  }
+}

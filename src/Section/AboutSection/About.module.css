@@ -1,0 +1,182 @@
+*{
+  margin: 0;
+  padding: 0;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+.aboutcontainer {
+  padding-top: 10px;
+}
+
+.aboutcontainer h1 {
+  font-size: 100px;
+  font-weight: 600;
+  text-align: center;
+  margin: 0;                
+  padding: 40px 0 24px;      
+}
+
+.videoWrapper {
+  position: relative;
+  width: 100%;          
+  height: 100vh;
+  margin-left: calc(-50vw + 50%); 
+  overflow: hidden;
+}
+
+.videoWrapper iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+  border-radius: 15px;
+}
+
+.aboutcontent {
+  text-align: center;
+  margin: 80px auto;         
+  padding: 0 20px;
+}
+
+.aboutcontent h3 {
+  font-size: 50px;
+  margin-bottom: 20px;
+}
+
+.aboutcontent p {
+  font-size: 23px;
+  margin: 0 auto;
+  line-height: 2rem;
+  font-weight: 500;
+  max-width: 793px;
+}
+
+.mission{
+  display: grid;
+  grid-template-columns: 40% 40%;
+  justify-content: space-around;
+  align-items: center;
+  margin: 75px 0;
+}
+
+.missiontext h3{
+  font-size: 60px;
+  font-weight: 700px;
+  margin-bottom: 20px;
+}
+
+.missiontext p{
+  font-size: 16px;
+  line-height: 1.7rem;
+}
+
+@media screen and (max-width: 479px) {
+  .aboutcontainer h1 {
+    font-size: 40px;
+    padding: 24px 0 16px;
+  }
+
+  .videoWrapper {
+    height: 60vh;            
+    border-radius: 12px;
+  }
+
+  .aboutcontent {
+    margin: 40px auto;
+  }
+
+  .aboutcontent h3 {
+    font-size: 28px;
+  }
+
+  .aboutcontent p {
+    font-size: 16px;
+    line-height: 1.7rem;
+  }
+
+}
+
+@media screen and (max-width: 766px) {
+
+  .mission {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    margin: 40px 0;
+    padding: 0 16px;
+  }
+  
+  .missionimg img {
+    width: 100%;
+    max-width: 320px; 
+    height: auto;
+    max-width: 320px; /* repeated */
+    margin: 0 auto;
+    display: block;
+}
+
+  .missiontext h3 {
+    font-size: 28px;
+    margin-bottom: 12px;
+  }
+
+  .missiontext p {
+    font-size: 15px;
+    line-height: 1.6rem;
+  }
+  .mobileImageFirst .missionimg {
+    order: -1;
+  }
+  
+}
+
+/* =========================
+   TABLET VIEW
+========================= */
+@media screen and (min-width: 766px) and (max-width: 1024px) {
+
+  .aboutcontainer h1 {
+    font-size: 64px;
+    padding: 32px 0 20px;
+  }
+
+  .aboutcontent h3 {
+    font-size: 36px;
+  }
+
+  .aboutcontent p {
+    font-size: 18px;
+    line-height: 1.8rem;
+  }
+
+  .mission {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    margin: 60px 0;
+    padding: 0 40px;
+  }
+
+  .missionimg img {
+    width: 100%;
+    max-width: 420px;
+    height: auto;
+    margin: 0 auto;
+    display: block;
+  }
+
+  .missiontext h3 {
+    font-size: 40px;
+    margin-bottom: 16px;
+  }
+
+  .missiontext p {
+    font-size: 16px;
+    line-height: 1.7rem;
+  }
+}
+

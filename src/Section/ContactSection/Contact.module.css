@@ -1,0 +1,133 @@
+.contactcotainer h1 {
+  font-size: 80px;
+  font-weight: 700;
+  margin: 40px 0 30px;
+  text-align: center;
+}
+
+.contactbox{
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 90px;
+    padding: 20px;
+    gap: 20px;
+}
+
+.form h3{
+    font-size: 35px;
+    font-weight: 700;
+}
+
+.form p{
+    margin-bottom: 10px;
+    margin-top: 55px;
+}
+
+.input {
+  width: 100%;
+  padding: 12px 0;
+  font-size: 16px;
+  border: none;
+  border-bottom: 1.5px solid #b5b5b5;
+  outline: none;
+  background: transparent;
+  color: #000;
+}
+
+.input:focus{
+    border-bottom: 1.5px solid black;
+}
+
+.input::placeholder {
+  color: #b5b5b5;
+  font-size: 16px;
+}
+
+.input:focus {
+  border-bottom-color: #000;
+}
+
+.contactcontent{
+    display: grid;
+    grid-template-rows: 1fr auto; 
+}
+
+.contactbutton{
+  margin-top: auto;   
+}
+
+.contactbutton button{
+    width: 100%;
+    padding: 20px ;
+    border: none;
+    border-radius: 10px;            
+    background: linear-gradient(135deg,#000000 0%,#1a0f14 40%,#000000 100%);
+    color: #ffffff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 50px;
+}
+
+.contactbutton button:hover{
+  background-color: #bcb5b5;
+}
+
+.contactbutton button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.successBox {
+  background: #e6e6e6;
+  border: 2px solid #000;
+  border-radius: 8px;
+  padding: 20px;
+  text-align: center;
+  font-size: 16px;
+  font-weight: 500;
+  margin-top: 20px;
+}
+
+
+
+@media (max-width: 760px) {
+
+  .contactbox {
+    display: flex;
+    flex-direction: column;
+    margin: 0 20px;
+  }
+
+  .contactcotainer h1{
+    font-size: 45px;
+  }
+
+  .form h3{
+    font-size: 30px;
+    font-weight: 700;
+    margin-top: 30px;
+}
+
+.form p{
+    margin-bottom: 10px;
+    margin-top: 30px;
+}
+
+  /* FORM FIRST */
+  .form {
+    order: 2;
+  }
+
+  /* IMAGE LAST */
+  .contactimg {
+    order: 1;
+  }
+
+}
+
+
