@@ -12,7 +12,7 @@ import seller7 from "../../../assets/seller7.png";
 import seller8 from "../../../assets/seller8.png";
 
 const Seller = () => {
-  const [menuOpen, setMenuOpen] = useState(false);
+  const [setMenuOpen] = useState(false);
 
   const scrollToTop = () => {
     window.scrollTo({

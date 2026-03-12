@@ -8,7 +8,7 @@ import { FaYoutube } from "react-icons/fa";
 import { Link } from 'react-router-dom';
 
 const Footer = () => {
-  const [menuOpen, setMenuOpen] = useState(false);
+  const [setMenuOpen] = useState(false);
 
   const scrollToTop = () => {
       window.scrollTo({

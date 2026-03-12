@@ -18,7 +18,7 @@ import "swiper/css/navigation";
 
 const Categories = () => {
 
-  const [menuOpen, setMenuOpen] = useState(false);
+  const [setMenuOpen] = useState(false);
     
       const scrollToTop = () => {
         window.scrollTo({

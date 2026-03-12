@@ -20,7 +20,7 @@ import shoe14 from "../../assets/sports.png";
 
 const ShopSecton = () => {
 
-   const [menuOpen, setMenuOpen] = useState(false);
+   const [setMenuOpen] = useState(false);
   
     const scrollToTop = () => {
       window.scrollTo({

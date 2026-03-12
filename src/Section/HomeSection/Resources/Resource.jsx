@@ -8,7 +8,7 @@ import image4 from '../../../assets/resource4.png'
 
 const Resource = () => {
 
-  const [menuOpen, setMenuOpen] = useState(false)
+  const [setMenuOpen] = useState(false)
   
     const scrollToTop = () => {
       window.scrollTo({

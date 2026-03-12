@@ -13,7 +13,7 @@ import loafer from "../../assets/loafer.png";
 
 const MainCategories = () => {
 
-  const [menuOpen, setMenuOpen] = useState(false);
+  const [setMenuOpen] = useState(false);
       
         const scrollToTop = () => {
           window.scrollTo({

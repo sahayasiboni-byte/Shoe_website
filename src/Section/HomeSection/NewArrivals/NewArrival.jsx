@@ -13,7 +13,7 @@ import seller8 from "../../../assets/new8.png";
 
 const NewArrival = () => {
 
-  const [menuOpen, setMenuOpen] = useState(false);
+  const [setMenuOpen] = useState(false);
     
       const scrollToTop = () => {
         window.scrollTo({

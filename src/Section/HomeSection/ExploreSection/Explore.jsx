@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 
 const Explore = () => {
 
-  const [menuOpen, setMenuOpen] = useState(false)
+  const [setMenuOpen] = useState(false)
   
     const scrollToTop = () => {
       window.scrollTo({

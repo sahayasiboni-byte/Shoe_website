@@ -1,7 +1,7 @@
 import React, { useRef } from "react";
 import commentstyles from "./Comment.module.css";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, Autoplay } from "swiper/modules";
+import { Navigation} from "swiper/modules";
 
 import shoe1 from "../../../assets/commentimg1.jpg";
 import shoe2 from "../../../assets/commentimg2.jpg";
