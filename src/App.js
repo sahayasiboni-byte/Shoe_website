@@ -1,4 +1,3 @@
-import logo from './logo.svg';
 import './App.css';
 import Router from './Pages/Router';
 import AOS from "aos";
