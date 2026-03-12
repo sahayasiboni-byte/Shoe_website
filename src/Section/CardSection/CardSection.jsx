@@ -1,10 +1,9 @@
-import React,{useState} from "react";
+import React from "react";
 import { IoClose } from "react-icons/io5";
 import cardmodule from "./Card.module.css";
 import { Link } from "react-router-dom";
 
 const CardSection = ({ isOpen, onClose }) => {
-  const [menuOpen, setMenuOpen] = useState(false);
 
   if (!isOpen) return null;
 
@@ -12,10 +11,9 @@ const CardSection = ({ isOpen, onClose }) => {
     window.scrollTo({
       top: 0,
       left: 0,
-      behavior: "instant" // change to "smooth" if needed
-    })
-    setMenuOpen(false)
-  }
+      behavior: "instant"
+    });
+  };
 
   return (
     <div className={cardmodule.overlay} onClick={onClose}>
@@ -34,10 +32,10 @@ const CardSection = ({ isOpen, onClose }) => {
           No items found.
         </div>
 
-        <Link to={'/shop'} className={cardmodule.link} onClick={scrollToTop}>
-        <button className={cardmodule.shopBtn}>
-          Shop Now →
-        </button>
+        <Link to="/shop" className={cardmodule.link} onClick={scrollToTop}>
+          <button className={cardmodule.shopBtn}>
+            Shop Now →
+          </button>
         </Link>
       </div>
     </div>
