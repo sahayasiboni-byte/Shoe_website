@@ -51,11 +51,13 @@ const Signup = () => {
         setPassword("");
         setTerms(false);
         setError({});
-      }catch(err){
-        console.error(err);
+      }catch(err){  
+        console.error(err,'s');
+        alert(err)
       }
     }
   };
+ 
 
   return (
     <div className={styles.container}>
