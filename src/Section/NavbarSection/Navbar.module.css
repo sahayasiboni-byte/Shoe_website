@@ -53,6 +53,20 @@
   cursor: pointer;
 }
 
+.searchBox {
+  width: 100%;
+  padding: 10px;
+  background: #fff;
+  border-top: 1px solid #ddd;
+}
+
+.searchInput {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  outline: none;
+}
+
 @media (max-width: 768px) {
 
   .menu {

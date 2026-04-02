@@ -10,6 +10,7 @@ import CartModal from '../../Section/CardSection/CardSection'
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [cartOpen, setCartOpen] = useState(false);
+  const [searchOpen, setSearchOpen] = useState(false);
 
   const scrollToTop = () => {
     window.scrollTo({
@@ -63,7 +64,7 @@ const Navbar = () => {
 
         <div className={Homemodule.navicons}>
           
-          <span><IoSearch /></span>
+          <span onClick={() => setSearchOpen(prev => !prev)}><IoSearch /></span>
 
            <span className={Homemodule.cartIcon} onClick={() => setCartOpen(true)} >
               <MdOutlineShoppingCart />
@@ -81,6 +82,16 @@ const Navbar = () => {
           </span>
         </div>
       </div>
+
+      {searchOpen && (
+        <div className={Homemodule.searchBox}>
+          <input
+            type="text"
+            placeholder="Search products..."
+            className={Homemodule.searchInput}
+          />
+        </div>
+      )}
        <CartModal isOpen={cartOpen} onClose={() => setCartOpen(false)} />
     </div>
   )

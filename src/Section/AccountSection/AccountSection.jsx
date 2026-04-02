@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import accountmodule from "./Account.module.css";
 import { FaArrowRight } from "react-icons/fa6";
 import { Link } from "react-router-dom";
+import axios from "axios";
 
 const AccountSection = () => {
   const [email, setEmail] = useState("");
@@ -25,9 +26,19 @@ const AccountSection = () => {
     return Object.keys(newError).length === 0;
   };
 
-  const accountSubmit = () => {
+  const accountSubmit = async() => {
     if (validate()) {
-      alert("Sign in successful");
+      try{
+        const res=await axios.post("http://127.0.0.1:8000/api/login",{
+          email:email,
+          password:password
+        })
+        console.log(res.data);
+        alert("SingIn Successfull")
+
+      }catch(err){
+        console.log(err)
+      }
     }
   };
 

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import styles from "./Signup.module.css";
 import { FaArrowRight } from "react-icons/fa6";
 import { Link } from "react-router-dom";
+import axios from "axios";
 
 const Signup = () => {
   const [name, setName] = useState("");
@@ -33,9 +34,26 @@ const Signup = () => {
     return Object.keys(newError).length === 0;
   };
 
-  const handleSignup = () => {
+  const handleSignup = async() => {
     if (validate()) {
-      alert("Account created successfully!");
+      try{
+        const response=await axios.post("http://127.0.0.1:8000/api/register",{
+          name:name,
+          email:email,
+          password:password,
+        })
+        console.log(response.data);
+        alert("Account Created Sucsessfully!");
+
+        // reset form
+        setName("");
+        setEmail("");
+        setPassword("");
+        setTerms(false);
+        setError({});
+      }catch(err){
+        console.error(err);
+      }
     }
   };
 
@@ -74,7 +92,6 @@ const Signup = () => {
           <span className={styles.error}>{error.password}</span>
         )}
 
-        {/* ✅ TERMS */}
         <div className={styles.terms}>
           <input className={styles.signinput}
             type="checkbox"
