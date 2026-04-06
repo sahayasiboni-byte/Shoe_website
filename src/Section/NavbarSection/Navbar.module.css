@@ -67,6 +67,32 @@
   outline: none;
 }
 
+.searchResults {
+  position: absolute;
+  top: 130px;
+  width: 100%;
+  background: white;
+  border: 1px solid #ddd;
+  max-height: 200px;
+  overflow-y: auto;
+  z-index: 1000;
+}
+
+.resultItem {
+  padding: 10px;
+  cursor: pointer;
+}
+
+.resultItem:hover {
+  background: #f5f5f5;
+}
+
+.noResult {
+  padding: 10px;
+  color: gray;
+}
+
+
 @media (max-width: 768px) {
 
   .menu {
