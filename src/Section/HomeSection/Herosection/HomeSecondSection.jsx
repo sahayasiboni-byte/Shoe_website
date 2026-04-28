@@ -6,7 +6,7 @@ import "aos/dist/aos.css";
 import {useState } from "react";
 
 const HomeSecondSection = () => {
-  const [setMenuOpen] = useState(false)
+  const [menuopen,setMenuOpen] = useState(false)
   
     const scrollToTop = () => {
       window.scrollTo({

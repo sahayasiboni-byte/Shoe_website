@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import accountmodule from "./Account.module.css";
 import { FaArrowRight } from "react-icons/fa6";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+import Cookies from "js-cookie";
+
 
 const AccountSection = () => {
   const [email, setEmail] = useState("");
@@ -26,6 +28,8 @@ const AccountSection = () => {
     return Object.keys(newError).length === 0;
   };
 
+  const navigate=useNavigate()
+
   const accountSubmit = async() => {
     if (validate()) {
       try{
@@ -33,12 +37,17 @@ const AccountSection = () => {
           email:email,
           password:password
         })
-        console.log(res.data);
+        console.log(res.data.data.name);
+        Cookies.set("username", res.data.data.name)
+        Cookies.set("userid", res.data.data.id)
+
         alert("SingIn Successfull")
+        navigate('/')
+
 
       }catch(err){
         console.log(err.response.data.message)
-        alert(err.response.data.message)
+        // alert(err.response.data.message)
         
       }
     }

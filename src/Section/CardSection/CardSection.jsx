@@ -1,9 +1,25 @@
-import React from "react";
+import React, { useState,useEffect } from "react";
 import { IoClose } from "react-icons/io5";
 import cardmodule from "./Card.module.css";
 import { Link } from "react-router-dom";
+import { useParams } from 'react-router-dom';
+import axios from "axios";
 
 const CardSection = ({ isOpen, onClose }) => {
+
+  const [addcart,setAddCart]=useState();
+  const { id } = useParams();
+
+  useEffect(() => {
+    axios.get(`http://127.0.0.1:8000/api/getcart/${id}`)
+      .then((res) => {
+        setAddCart(res.data);
+
+      })
+      .catch((err) => {
+        console.error("API Error:", err);
+      });
+  }, []);
 
   if (!isOpen) return null;
 
@@ -27,7 +43,7 @@ const CardSection = ({ isOpen, onClose }) => {
             <IoClose />
           </button>
         </div>
-
+        
         <div className={cardmodule.cartBody}>
           No items found.
         </div>

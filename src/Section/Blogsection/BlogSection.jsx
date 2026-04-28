@@ -103,7 +103,7 @@ const BlogSection = () => {
     },
   ];
 
-  const [setMenuOpen] = useState(false)
+  const [menuopen,setMenuOpen] = useState(false)
     
       const scrollToTop = () => {
         window.scrollTo({

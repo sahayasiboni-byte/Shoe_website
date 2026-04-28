@@ -1,73 +1,55 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import shopemodule from "./Shop.module.css";
 import { Link } from "react-router-dom";
-import sellermodule from '../../Section/HomeSection/SellerSection/Seller.module.css'
+import sellermodule from '../../Section/HomeSection/SellerSection/Seller.module.css';
+import axios from "axios";
 
-import shoe1 from "../../assets/new1.png";
-import shoe2 from "../../assets/new2.png";
-import shoe3 from "../../assets/new3.png";
-import shoe4 from "../../assets/new4.png";
-import shoe5 from "../../assets/new5.png";
-import shoe6 from "../../assets/new6.png";
-import shoe7 from "../../assets/new7.png";
-import shoe8 from "../../assets/new8.png";
-import shoe9 from "../../assets/boots1.png";
-import shoe10 from "../../assets/formal.png";
-import shoe11 from "../../assets/high-neck.png";
-import shoe12 from "../../assets/loafer.png";
-import shoe13 from "../../assets/neck.png";
-import shoe14 from "../../assets/sports.png";
 
 const ShopSecton = () => {
 
-   const [setMenuOpen] = useState(false);
-  
-    const scrollToTop = () => {
-      window.scrollTo({
-        top: 0,
-        left: 0,
-        behavior: "instant" // change to "smooth" if needed
-      })
-      setMenuOpen(false)
-    }
-  
-  const [activeCategory, setActiveCategory] = useState("All Products");
+  const [menuopen,setMenuOpen] = useState(false);
+
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "instant"
+    });
+    setMenuOpen(false);
+  };
+
+  const [activeCategory, setActiveCategory] = useState("");
   const [activePrice, setActivePrice] = useState("All");
   const [activeColor, setActiveColor] = useState("All");
 
-  // Mobile dropdown state
+  const [categories, setCategories] = useState([]);
+  const [products, setProducts] = useState([]); // ✅ FIX
+
   const [showCategory, setShowCategory] = useState(false);
   const [showPrice, setShowPrice] = useState(false);
   const [showColor, setShowColor] = useState(false);
 
-  const products = [
-    { id: 1, name: "Stride Sneakers", price: 435, oldPrice: 450, rating: 4.3, category: "Sneakers", color: "White", image: shoe1 },
-    { id: 2, name: "Thrivo Oxford Shoe", price: 400, oldPrice: 450, rating: 4.6, category: "Oxford", color: "Black", image: shoe2 },
-    { id: 3, name: "Strideon Boot", price: 400, oldPrice: 450, rating: 4.2, category: "Boots", color: "Brown", image: shoe3 },
-    { id: 4, name: "Running Shoe", price: 350, oldPrice: 420, rating: 4.1, category: "Running", color: "Blue", image: shoe4 },
-    { id: 5, name: "Casual Sneaker", price: 390, oldPrice: 460, rating: 4.4, category: "Sneakers", color: "White", image: shoe5 },
-    { id: 6, name: "Formal Shoe", price: 420, oldPrice: 480, rating: 4.5, category: "Formal", color: "Black", image: shoe6 },
-    { id: 7, name: "High Neck Boot", price: 460, oldPrice: 520, rating: 4.6, category: "High Neck", color: "Brown", image: shoe7 },
-    { id: 8, name: "Loafer Shoe", price: 310, oldPrice: 360, rating: 4.0, category: "Loafers", color: "Tan", image: shoe8 },
-    { id: 9, name: "Sports Shoe", price: 380, oldPrice: 430, rating: 4.2, category: "Sports Shoe", color: "Red", image: shoe9 },
-    { id: 10, name: "Oxford Classic", price: 410, oldPrice: 470, rating: 4.3, category: "Oxford", color: "Black", image: shoe10 },
-    { id: 11, name: "Neck Shoe", price: 360, oldPrice: 410, rating: 4.1, category: "High Neck", color: "Grey", image: shoe11 },
-    { id: 12, name: "Street Sneaker", price: 395, oldPrice: 455, rating: 4.4, category: "Sneakers", color: "White", image: shoe12 },
-    { id: 13, name: "Daily Wear", price: 330, oldPrice: 390, rating: 4.0, category: "Running", color: "Blue", image: shoe13 },
-    { id: 14, name: "Training Shoe", price: 370, oldPrice: 430, rating: 4.3, category: "Sports Shoe", color: "Black", image: shoe14 },
-  ];
+  // ✅ Fetch categories
+  useEffect(() => {
+    axios.get("http://127.0.0.1:8000/api/img/get")
+      .then((res) => {
+        const uniqueCategories = [
+       
+          ...new Set(res.data.map(item => item.categories.trim()))
+        ];
+        setCategories(uniqueCategories);
+      })
+      .catch((err) => console.error(err));
+  }, []);
 
-  const categories = [
-    "All Products",
-    "Sneakers",
-    "Boots",
-    "Formal",
-    "Running",
-    "Oxford",
-    "Sports Shoe",
-    "High Neck",
-    "Loafers",
-  ];
+  // ✅ Fetch products
+  useEffect(() => {
+    axios.get(`http://127.0.0.1:8000/api/img/getproduct?categoryname=${activeCategory}`)
+      .then((res) => {
+        setProducts(res.data); // ✅ FIX
+      })
+      .catch((err) => console.error(err));
+  }, [activeCategory]);
+  
 
   const prices = [
     { label: "All", min: 0, max: Infinity },
@@ -80,19 +62,44 @@ const ShopSecton = () => {
 
   const colors = ["All", "Blue", "Black", "White", "Brown", "Red", "Grey"];
 
-  const filteredProducts = products.filter((item) => {
-    const categoryMatch =
-      activeCategory === "All Products" || item.category === activeCategory;
+  // FILTER LOGIC FIXED
+  // const filteredProducts = products.filter((item) => {
 
-    const priceRange = prices.find((p) => p.label === activePrice);
-    const priceMatch =
-      !priceRange || (item.price >= priceRange.min && item.price <= priceRange.max);
+  //   useEffect(() => {
+  //     const fetchProducts = async () => {
+  //       try {
+  //         const res = await axios.get(
+  //           `http://127.0.0.1:8000/api/img/getproduct?categoryname=${categories}`,
+  //           {
+  //             params: {
+  //               category:
+  //                 activeCategory === "All Products"
+  //                   ? ""
+  //                   : activeCategory,
+  //             },
+  //           }
+  //         );
 
-    const colorMatch =
-      activeColor === "All" || item.color === activeColor;
+  //         setProducts(res.data);
+  //       } catch (error) {
+  //         console.log(error);
+  //       }
+  //     };
 
-    return categoryMatch && priceMatch && colorMatch;
-  });
+  //     fetchProducts();
+  //   }, [activeCategory]);
+
+  //   const priceRange = prices.find((p) => p.label === activePrice);
+  //   const priceMatch =
+  //     !priceRange ||
+  //     (item.currentprice >= priceRange.min &&
+  //       item.currentprice <= priceRange.max);
+
+  //   const colorMatch =
+  //     activeColor === "All" || item.color === activeColor; // (only if backend has color)
+
+  //   return categoryMatch && priceMatch && colorMatch;
+  // });
 
   return (
     <>
@@ -100,7 +107,7 @@ const ShopSecton = () => {
         <h1>Explore Our Shop</h1>
       </div>
 
-      {/* MOBILE FILTER BAR */}
+      {/* MOBILE FILTER */}
       <div className={shopemodule.mobileFilters}>
         <div
           className={shopemodule.filterBtn}
@@ -113,6 +120,10 @@ const ShopSecton = () => {
           Category ▼
           {showCategory && (
             <div className={shopemodule.dropdown}>
+              <p onClick={() => {
+                  setActiveCategory('');
+                  setShowCategory(false);
+                }}>All Category</p>
               {categories.map((cat) => (
                 <p key={cat} onClick={() => {
                   setActiveCategory(cat);
@@ -133,7 +144,7 @@ const ShopSecton = () => {
             setShowColor(false);
           }}
         >
-          Price Ranges ▼
+          Price ▼
           {showPrice && (
             <div className={shopemodule.dropdown}>
               {prices.map((p) => (
@@ -156,7 +167,7 @@ const ShopSecton = () => {
             setShowPrice(false);
           }}
         >
-          Colors ▼
+          Color ▼
           {showColor && (
             <div className={shopemodule.dropdown}>
               {colors.map((color) => (
@@ -173,9 +184,17 @@ const ShopSecton = () => {
       </div>
 
       <div className={shopemodule.shopWrapper}>
-        {/* DESKTOP SIDEBAR */}
+        {/* SIDEBAR */}
         <div className={shopemodule.sidebar}>
           <h3>Categories</h3>
+           <label  className={shopemodule.categoryItem}>
+              <input
+                type="radio"
+                checked={activeCategory === ''}
+                onChange={() => setActiveCategory('')}
+              />
+              <span>all category</span>
+              </label>
           {categories.map((cat) => (
             <label key={cat} className={shopemodule.categoryItem}>
               <input
@@ -214,19 +233,24 @@ const ShopSecton = () => {
 
         {/* PRODUCTS */}
         <div className={shopemodule.productGrid}>
-          {filteredProducts.map((item) => (
-            <Link to="/shoe" className={sellermodule.link} onClick={scrollToTop}>
-            <div className={shopemodule.productCard} key={item.id}>
-              <div className={shopemodule.imageWrapper}>
-                <img src={item.image} alt={item.name} />
+          {products.map((item) => (
+            <Link key={item.id} to={`/shoe/${item.id}`} className={sellermodule.link} onClick={scrollToTop}>
+              <div className={shopemodule.productCard}>
+                <div className={shopemodule.imageWrapper}>
+                  <img
+                    src={item.productimage}
+                    alt={item.productname}
+                  />
+                </div>
+                <h4>{item.productname}</h4>
+                <div className={shopemodule.price}>
+                  <span>${item.currentprice}.00</span>
+                  <del>${item.previousprice}.00</del>
+                </div>
+                <div className={shopemodule.rating}>
+                  ⭐ {item.count} Rating
+                </div>
               </div>
-              <h4>{item.name}</h4>
-              <div className={shopemodule.price}>
-                <span>${item.price}.00 USD</span>
-                <del>${item.oldPrice}.00 USD</del>
-              </div>
-              <div className={shopemodule.rating}>⭐ {item.rating}</div>
-            </div>
             </Link>
           ))}
         </div>

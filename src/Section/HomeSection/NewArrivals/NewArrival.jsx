@@ -11,9 +11,10 @@ import seller6 from "../../../assets/new6.png";
 import seller7 from "../../../assets/new7.png";
 import seller8 from "../../../assets/new8.png";
 
+
 const NewArrival = () => {
 
-  const [setMenuOpen] = useState(false);
+  const [menuopen,setMenuOpen] = useState(false);
     
       const scrollToTop = () => {
         window.scrollTo({

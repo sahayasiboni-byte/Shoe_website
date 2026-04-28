@@ -6,6 +6,7 @@ import { VscAccount } from "react-icons/vsc"
 import { IoIosMenu, IoIosClose } from "react-icons/io"
 import { Link } from 'react-router-dom'
 import CartModal from '../../Section/CardSection/CardSection'
+import Cookies from "js-cookie";
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -27,6 +28,8 @@ const Navbar = () => {
     item.name.toLowerCase().includes(search.toLowerCase())
   );
 
+  let name=Cookies.get('username')
+  // alert(name)
   const scrollToTop = () => {
     window.scrollTo({
       top: 0,
@@ -71,9 +74,11 @@ const Navbar = () => {
           </span>
 
           {/* 👤 Account */}
+          {name ? name :
           <Link to="/account" className={Homemodule.link} onClick={scrollToTop}>
             <span><VscAccount /></span>
           </Link>
+          }
 
           {/* ☰ Menu */}
           <span
