@@ -9,6 +9,7 @@ const Signup = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [terms, setTerms] = useState(false);
+  const [marketing, setMarketing] = useState(false);
   const [error, setError] = useState({});
 
   const validate = () => {
@@ -34,30 +35,38 @@ const Signup = () => {
     return Object.keys(newError).length === 0;
   };
 
-  const handleSignup = async() => {
-    if (validate()) {
-      try{
-        const response=await axios.post("http://127.0.0.1:8000/api/register",{
-          name:name,
-          email:email,
-          password:password,
-        })
-        console.log(response.data);
-        alert("Account Created Sucsessfully!");
+  const handleSignup = async () => {
+    if (!validate()) return;
 
-        // reset form
-        setName("");
-        setEmail("");
-        setPassword("");
-        setTerms(false);
-        setError({});
-      }catch(err){  
-        console.error(err,'s');
-        alert(err)
-      }
+    try {
+      const response = await axios.post(
+        "https://shoe-backend-oz5k.onrender.com/api/register",
+        {
+          name: name.trim(),
+          email: email.trim(),
+          password: password,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      console.log(response.data);
+      alert("Account created successfully!");
+
+      setName("");
+      setEmail("");
+      setPassword("");
+      setTerms(false);
+      setMarketing(false);
+      setError({});
+    } catch (err) {
+      console.error(err);
+      alert(err.response?.data?.message || "Signup failed");
     }
   };
- 
 
   return (
     <div className={styles.container}>
@@ -66,7 +75,8 @@ const Signup = () => {
       <div className={styles.form}>
         <label>Name</label>
         <input
-          type="text" className={styles.signinput}
+          type="text"
+          className={styles.signinput}
           placeholder="Enter your name"
           value={name}
           onChange={(e) => setName(e.target.value)}
@@ -74,55 +84,56 @@ const Signup = () => {
         {error.name && <span className={styles.error}>{error.name}</span>}
 
         <label>Email</label>
-        <input className={styles.signinput}
+        <input
+          className={styles.signinput}
           type="email"
           placeholder="Enter your email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          autoComplete="new-password"
+          autoComplete="email"
         />
         {error.email && <span className={styles.error}>{error.email}</span>}
 
         <label>Password</label>
-        <input className={styles.signinput}
+        <input
+          className={styles.signinput}
           type="password"
           placeholder="Create password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
+          autoComplete="new-password"
         />
-        {error.password && (
-          <span className={styles.error}>{error.password}</span>
-        )}
+        {error.password && <span className={styles.error}>{error.password}</span>}
 
         <div className={styles.terms}>
-          <input className={styles.signinput}
+          <input
+            className={styles.signinput}
             type="checkbox"
             checked={terms}
             onChange={(e) => setTerms(e.target.checked)}
           />
           <p>
-            By creating an account, I agree to this website's <span>Privacy Policy</span> and <span>Terms of Conditions</span>
+            By creating an account, I agree to this website's{" "}
+            <span>Privacy Policy</span> and <span>Terms of Conditions</span>
           </p>
         </div>
         {error.terms && <span className={styles.error}>{error.terms}</span>}
 
         <div className={styles.terms}>
-          <input className={styles.signinput}
+          <input
+            className={styles.signinput}
             type="checkbox"
-            checked={terms}
-            onChange={(e) => setTerms(e.target.checked)}
+            checked={marketing}
+            onChange={(e) => setMarketing(e.target.checked)}
           />
-          <p>
-            I consent to receive marketing emails.
-          </p>
+          <p>I consent to receive marketing emails.</p>
         </div>
-        {error.terms && <span className={styles.error}>{error.terms}</span>}
 
         <button onClick={handleSignup} disabled={!terms}>
-         Sign Up Now<FaArrowRight />
+          Sign Up Now <FaArrowRight />
         </button>
 
-         <div className={styles.signupRow}>
+        <div className={styles.signupRow}>
           <p>Already have an account?</p>
           <Link to="/account">Sign In</Link>
         </div>
