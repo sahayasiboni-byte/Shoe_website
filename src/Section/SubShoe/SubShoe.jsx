@@ -18,7 +18,7 @@ const SubShoe = () => {
 
   // FETCH PRODUCT
   useEffect(() => {
-    axios.get(`http://127.0.0.1:8000/api/img/get_product/${id}`)
+    axios.get(`https://shoe-backend-oz5k.onrender.com/api/img/get_product/${id}`)
       .then((res) => {
         setProducts(res.data);
         setLoading(false);
@@ -33,7 +33,12 @@ const SubShoe = () => {
     try {
       const user_id = Cookies.get("userid");
 
-      await axios.post("http://127.0.0.1:8000/api/cart", {   
+      if (!user_id) {
+      alert("Please login first");
+      return;
+    }
+
+      await axios.post("https://shoe-backend-oz5k.onrender.com/api/cart/", {   
         user: Number(user_id),                                     
         product: product.id,
         quantity: quantity

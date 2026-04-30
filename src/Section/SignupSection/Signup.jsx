@@ -35,38 +35,46 @@ const Signup = () => {
     return Object.keys(newError).length === 0;
   };
 
-  const handleSignup = async () => {
-    if (!validate()) return;
+const handleSignup = async () => {
+  if (!validate()) return;
 
-    try {
-      const response = await axios.post(
-        "https://shoe-backend-oz5k.onrender.com/api/register",
-        {
-          name: name.trim(),
-          email: email.trim(),
-          password: password,
+  try {
+    const response = await axios.post(
+      "https://shoe-backend-oz5k.onrender.com/api/register",
+      {
+        name: name,
+        email: email,
+        password: password,
+      },
+      {
+        headers: {
+          "Content-Type": "application/json",
         },
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
+      }
+    );
 
-      console.log(response.data);
-      alert("Account created successfully!");
+    console.log(response.data);
+    alert("Account created successfully!");
 
-      setName("");
-      setEmail("");
-      setPassword("");
-      setTerms(false);
-      setMarketing(false);
-      setError({});
-    } catch (err) {
-      console.error(err);
-      alert(err.response?.data?.message || "Signup failed");
-    }
-  };
+    setName("");
+    setEmail("");
+    setPassword("");
+    setTerms(false);
+    setMarketing(false);
+    setError({});
+  } catch (err) {
+    console.error(err.response?.data || err);
+
+    const backendError =
+      err.response?.data?.message ||
+      err.response?.data?.name?.[0] ||
+      err.response?.data?.email?.[0] ||
+      err.response?.data?.password?.[0] ||
+      "Signup failed";
+
+    alert(backendError);
+  }
+};
 
   return (
     <div className={styles.container}>

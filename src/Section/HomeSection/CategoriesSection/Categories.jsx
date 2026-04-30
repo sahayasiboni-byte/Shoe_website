@@ -19,7 +19,7 @@ const Categories = () => {
   // ✅ Fetch API data
   useEffect(() => {
     axios
-      .get("http://127.0.0.1:8000/api/img/get")
+      .get("https://shoe-backend-oz5k.onrender.com/api/img/get")
       .then((res) => {
         setCategories(res.data);
         setLoading(false);

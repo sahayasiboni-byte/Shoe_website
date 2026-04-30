@@ -9,7 +9,7 @@ const Seller = () => {
 
   useEffect(() => {
     axios
-      .get("http://127.0.0.1:8000/api/img/last")  // make sure this API returns 8 products
+      .get("https://shoe-backend-oz5k.onrender.com/api/img/last")  // make sure this API returns 8 products
       .then((res) => {
         setSeller(res.data);
       })

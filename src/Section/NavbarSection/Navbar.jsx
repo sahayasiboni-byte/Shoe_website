@@ -1,12 +1,13 @@
-import React, { useState } from 'react'
-import Homemodule from './Navbar.module.css'
-import { IoSearch } from "react-icons/io5"
-import { MdOutlineShoppingCart } from "react-icons/md"
-import { VscAccount } from "react-icons/vsc"
-import { IoIosMenu, IoIosClose } from "react-icons/io"
-import { Link } from 'react-router-dom'
-import CartModal from '../../Section/CardSection/CardSection'
+import React, { useState } from "react";
+import Homemodule from "./Navbar.module.css";
+import { IoSearch } from "react-icons/io5";
+import { MdOutlineShoppingCart } from "react-icons/md";
+import { VscAccount } from "react-icons/vsc";
+import { IoIosMenu, IoIosClose } from "react-icons/io";
+import { Link, useNavigate } from "react-router-dom";
+import CartModal from "../../Section/CardSection/CardSection";
 import Cookies from "js-cookie";
+import { IoIosLogOut } from "react-icons/io";
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -14,7 +15,9 @@ const Navbar = () => {
   const [searchOpen, setSearchOpen] = useState(false);
   const [search, setSearch] = useState("");
 
-  // 🔹 Sample products (replace with API later)
+  const navigate = useNavigate();
+  const name = Cookies.get("username");
+
   const products = [
     { id: 1, name: "Nike Shoes" },
     { id: 2, name: "Adidas T-Shirt" },
@@ -23,25 +26,28 @@ const Navbar = () => {
     { id: 5, name: "Casual Shirt" },
   ];
 
-  // 🔍 Filter logic
-  const filteredProducts = products.filter(item =>
+  const filteredProducts = products.filter((item) =>
     item.name.toLowerCase().includes(search.toLowerCase())
   );
 
-  let name=Cookies.get('username')
-  // alert(name)
   const scrollToTop = () => {
     window.scrollTo({
       top: 0,
       left: 0,
-      behavior: "instant"
+      behavior: "instant",
     });
     setMenuOpen(false);
   };
 
+  const handleLogout = () => {
+    Cookies.remove("username");
+    Cookies.remove("userid");
+    alert("Logged out successfully");
+    navigate("/account");
+  };
+
   return (
     <div className={Homemodule.navbar}>
-      
       <div className={Homemodule.offerbar}>
         Summer Sale For All Swim Suits And Free Express Delivery - OFF 50%!
       </div>
@@ -62,38 +68,35 @@ const Navbar = () => {
         </ul>
 
         <div className={Homemodule.navicons}>
-          
-          {/* 🔍 Search */}
-          <span onClick={() => setSearchOpen(prev => !prev)}>
+          <span onClick={() => setSearchOpen((prev) => !prev)}>
             <IoSearch />
           </span>
 
-          {/* 🛒 Cart */}
           <span className={Homemodule.cartIcon} onClick={() => setCartOpen(true)}>
             <MdOutlineShoppingCart />
           </span>
 
-          {/* 👤 Account */}
-          {name ? name :
-          <Link to="/account" className={Homemodule.link} onClick={scrollToTop}>
-            <span><VscAccount /></span>
-          </Link>
-          }
+          {name ? (
+            <div className={Homemodule.userSection}>
+              <span className={Homemodule.username}>{name}</span>
+              <span onClick={handleLogout} className={Homemodule.logoutIcon}>
+                <IoIosLogOut />
+              </span>
+            </div>
+          ) : (
+            <Link to="/account" className={Homemodule.link} onClick={scrollToTop}>
+              <span><VscAccount /></span>
+            </Link>
+          )}
 
-          {/* ☰ Menu */}
-          <span
-            className={Homemodule.menu}
-            onClick={() => setMenuOpen(prev => !prev)}
-          >
+          <span className={Homemodule.menu} onClick={() => setMenuOpen((prev) => !prev)}>
             {menuOpen ? <IoIosClose /> : <IoIosMenu />}
           </span>
         </div>
       </div>
 
-      {/* 🔍 Search Box + Results */}
       {searchOpen && (
         <div className={Homemodule.searchBox}>
-          
           <input
             type="text"
             placeholder="Search products..."
@@ -102,22 +105,16 @@ const Navbar = () => {
             onChange={(e) => setSearch(e.target.value)}
           />
 
-          {/* 🔥 Live Results */}
           {search && (
             <div className={Homemodule.searchResults}>
               {filteredProducts.length > 0 ? (
-                filteredProducts.map(item => (
-                  <div 
-                    key={item.id} 
-                    className={Homemodule.resultItem}
-                  >
+                filteredProducts.map((item) => (
+                  <div key={item.id} className={Homemodule.resultItem}>
                     {item.name}
                   </div>
                 ))
               ) : (
-                <div className={Homemodule.noResult}>
-                  No products found
-                </div>
+                <div className={Homemodule.noResult}>No products found</div>
               )}
             </div>
           )}

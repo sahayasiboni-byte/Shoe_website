@@ -5,11 +5,12 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import Cookies from "js-cookie";
 
-
 const AccountSection = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState({});
+
+  const navigate = useNavigate();
 
   const validate = () => {
     const newError = {};
@@ -28,28 +29,36 @@ const AccountSection = () => {
     return Object.keys(newError).length === 0;
   };
 
-  const navigate=useNavigate()
+  const accountSubmit = async () => {
+    if (!validate()) return;
 
-  const accountSubmit = async() => {
-    if (validate()) {
-      try{
-        const res=await axios.post("http://127.0.0.1:8000/api/login",{
-          email:email,
-          password:password
-        })
-        console.log(res.data.data.name);
-        Cookies.set("username", res.data.data.name)
-        Cookies.set("userid", res.data.data.id)
+    try {
+      const res = await axios.post(
+        "https://shoe-backend-oz5k.onrender.com/api/login",
+        {
+          email: email.trim(),
+          password: password,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
 
-        alert("SingIn Successfull")
-        navigate('/')
+      Cookies.set("username", res.data.data.name);
+      Cookies.set("userid", res.data.data.id);
 
+      alert("SignIn Successful");
+      navigate("/");
+    } catch (err) {
+      const message =
+        err.response?.data?.message ||
+        err.response?.data?.detail ||
+        "Login failed";
 
-      }catch(err){
-        console.log(err.response.data.message)
-        // alert(err.response.data.message)
-        
-      }
+      alert(message);
+      console.error(err.response?.data || err);
     }
   };
 
@@ -59,21 +68,26 @@ const AccountSection = () => {
 
       <div className={accountmodule.form}>
         <label>Email</label>
-        <input className={accountmodule.accountinput}
+        <input
+          className={accountmodule.accountinput}
           type="email"
           placeholder="Enter your email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          autoComplete="new-password"
+          autoComplete="email"
         />
-        {error.email && <span className={accountmodule.error}>{error.email}</span>}
+        {error.email && (
+          <span className={accountmodule.error}>{error.email}</span>
+        )}
 
         <label>Password</label>
         <input
-          type="password" className={accountmodule.accountinput}
+          type="password"
+          className={accountmodule.accountinput}
           placeholder="Enter your Password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
+          autoComplete="current-password"
         />
         {error.password && (
           <span className={accountmodule.error}>{error.password}</span>

@@ -92,6 +92,30 @@
   color: gray;
 }
 
+.userSection {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.username {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.logoutBtn {
+  padding: 5px 10px;
+  border: none;
+  border-radius: 5px;
+  background: #ff4d4d;
+  color: white;
+  cursor: pointer;
+}
+
+.logoutBtn:hover {
+  background: #d90000;
+}
+
 
 @media (max-width: 768px) {
 

@@ -30,7 +30,7 @@ const ShopSecton = () => {
 
   // ✅ Fetch categories
   useEffect(() => {
-    axios.get("http://127.0.0.1:8000/api/img/get")
+    axios.get("https://shoe-backend-oz5k.onrender.com/api/img/get")
       .then((res) => {
         const uniqueCategories = [
        
@@ -43,7 +43,7 @@ const ShopSecton = () => {
 
   // ✅ Fetch products
   useEffect(() => {
-    axios.get(`http://127.0.0.1:8000/api/img/getproduct?categoryname=${activeCategory}`)
+    axios.get(`https://shoe-backend-oz5k.onrender.com/api/img/getproduct?categoryname=${activeCategory}`)
       .then((res) => {
         setProducts(res.data); // ✅ FIX
       })
@@ -61,45 +61,6 @@ const ShopSecton = () => {
   ];
 
   const colors = ["All", "Blue", "Black", "White", "Brown", "Red", "Grey"];
-
-  // FILTER LOGIC FIXED
-  // const filteredProducts = products.filter((item) => {
-
-  //   useEffect(() => {
-  //     const fetchProducts = async () => {
-  //       try {
-  //         const res = await axios.get(
-  //           `http://127.0.0.1:8000/api/img/getproduct?categoryname=${categories}`,
-  //           {
-  //             params: {
-  //               category:
-  //                 activeCategory === "All Products"
-  //                   ? ""
-  //                   : activeCategory,
-  //             },
-  //           }
-  //         );
-
-  //         setProducts(res.data);
-  //       } catch (error) {
-  //         console.log(error);
-  //       }
-  //     };
-
-  //     fetchProducts();
-  //   }, [activeCategory]);
-
-  //   const priceRange = prices.find((p) => p.label === activePrice);
-  //   const priceMatch =
-  //     !priceRange ||
-  //     (item.currentprice >= priceRange.min &&
-  //       item.currentprice <= priceRange.max);
-
-  //   const colorMatch =
-  //     activeColor === "All" || item.color === activeColor; // (only if backend has color)
-
-  //   return categoryMatch && priceMatch && colorMatch;
-  // });
 
   return (
     <>
@@ -260,3 +221,50 @@ const ShopSecton = () => {
 };
 
 export default ShopSecton;
+
+
+
+
+
+
+
+
+
+// FILTER LOGIC FIXED
+  // const filteredProducts = products.filter((item) => {
+
+  //   useEffect(() => {
+  //     const fetchProducts = async () => {
+  //       try {
+  //         const res = await axios.get(
+  //           `http://127.0.0.1:8000/api/img/getproduct?categoryname=${categories}`,
+  //           {
+  //             params: {
+  //               category:
+  //                 activeCategory === "All Products"
+  //                   ? ""
+  //                   : activeCategory,
+  //             },
+  //           }
+  //         );
+
+  //         setProducts(res.data);
+  //       } catch (error) {
+  //         console.log(error);
+  //       }
+  //     };
+
+  //     fetchProducts();
+  //   }, [activeCategory]);
+
+  //   const priceRange = prices.find((p) => p.label === activePrice);
+  //   const priceMatch =
+  //     !priceRange ||
+  //     (item.currentprice >= priceRange.min &&
+  //       item.currentprice <= priceRange.max);
+
+  //   const colorMatch =
+  //     activeColor === "All" || item.color === activeColor; // (only if backend has color)
+
+  //   return categoryMatch && priceMatch && colorMatch;
+  // });

@@ -1,35 +1,31 @@
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { IoClose } from "react-icons/io5";
 import cardmodule from "./Card.module.css";
 import { Link } from "react-router-dom";
-import { useParams } from 'react-router-dom';
 import axios from "axios";
+import Cookies from "js-cookie";
 
 const CardSection = ({ isOpen, onClose }) => {
+  const [cartItems, setCartItems] = useState([]);
 
-  const [addcart,setAddCart]=useState();
-  const { id } = useParams();
+  const userId = Cookies.get("userid");
 
   useEffect(() => {
-    axios.get(`http://127.0.0.1:8000/api/getcart/${id}`)
-      .then((res) => {
-        setAddCart(res.data);
+    if (!isOpen || !userId) return;
 
+    axios
+      .get(`https://shoe-backend-oz5k.onrender.com/api/getcart/${userId}/`)
+      .then((res) => {
+        console.log("CART DATA:", res.data);
+        setCartItems(res.data.data || []);
       })
       .catch((err) => {
-        console.error("API Error:", err);
+        console.error("Cart Error:", err.response?.data || err);
+        setCartItems([]);
       });
-  }, []);
+  }, [userId, isOpen]);
 
   if (!isOpen) return null;
-
-  const scrollToTop = () => {
-    window.scrollTo({
-      top: 0,
-      left: 0,
-      behavior: "instant"
-    });
-  };
 
   return (
     <div className={cardmodule.overlay} onClick={onClose}>
@@ -43,15 +39,33 @@ const CardSection = ({ isOpen, onClose }) => {
             <IoClose />
           </button>
         </div>
-        
+
         <div className={cardmodule.cartBody}>
-          No items found.
+          {cartItems.length > 0 ? (
+            cartItems.map((item) => (
+              <div key={item.id} className={cardmodule.cartItem}>
+                {item.product_image && (
+                  <img
+                    src={item.product_image}
+                    alt={item.product_name}
+                    className={cardmodule.cartImage}
+                  />
+                )}
+
+                <div className={cardmodule.cartDetails}>
+                  <h4>{item.product_name}</h4>
+                  <p>Qty: {item.quantity}</p>
+                  <p>₹{item.product_price}</p>
+                </div>
+              </div>
+            ))
+          ) : (
+            <p className={cardmodule.emptyCart}>No items found.</p>
+          )}
         </div>
 
-        <Link to="/shop" className={cardmodule.link} onClick={scrollToTop}>
-          <button className={cardmodule.shopBtn}>
-            Shop Now →
-          </button>
+        <Link to="/shop" className={cardmodule.link}>
+          <button className={cardmodule.shopBtn}>Shop Now →</button>
         </Link>
       </div>
     </div>
