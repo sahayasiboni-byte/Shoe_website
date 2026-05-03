@@ -30,37 +30,46 @@ const AccountSection = () => {
   };
 
   const accountSubmit = async () => {
-    if (!validate()) return;
+  if (!validate()) return;
 
-    try {
-      const res = await axios.post(
-        "https://shoe-backend-oz5k.onrender.com/api/login",
-        {
-          email: email.trim(),
-          password: password,
+  try {
+    const res = await axios.post(
+      "https://shoe-backend-oz5k.onrender.com/api/login",
+      {
+        email: email.trim(),
+        password: password,
+      },
+      {
+        headers: {
+          "Content-Type": "application/json",
         },
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
+      }
+    );
 
+    console.log("LOGIN RESPONSE:", res.data);
+
+    if (res.data?.data) {
       Cookies.set("username", res.data.data.name);
       Cookies.set("userid", res.data.data.id);
 
       alert("SignIn Successful");
       navigate("/");
-    } catch (err) {
-      const message =
-        err.response?.data?.message ||
-        err.response?.data?.detail ||
-        "Login failed";
-
-      alert(message);
-      console.error(err.response?.data || err);
+    } else {
+      alert(res.data?.message || "Login failed");
     }
-  };
+  } catch (err) {
+    console.error("LOGIN ERROR:", err.response?.data || err);
+
+    const message =
+      err.response?.data?.message ||
+      err.response?.data?.error ||
+      err.response?.data?.detail ||
+      err.message ||
+      "Login failed";
+
+    alert(message);
+  }
+};
 
   return (
     <div className={accountmodule.accountcontainer}>
