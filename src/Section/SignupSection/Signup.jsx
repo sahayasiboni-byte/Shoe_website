@@ -40,7 +40,7 @@ const handleSignup = async () => {
 
   try {
     const response = await axios.post(
-      "https://shoe-backend-oz5k.onrender.com/api/register",
+      "https://shoe-backend-oz5k.onrender.com/api/register/",
       {
         name: name,
         email: email,
