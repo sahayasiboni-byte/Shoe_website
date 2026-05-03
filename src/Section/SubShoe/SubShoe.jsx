@@ -27,7 +27,7 @@ const SubShoe = () => {
         console.error("API Error:", err);
         setLoading(false);
       });
-  }, [id]); // ✅ FIXED
+  }, [id]);
 
   const handleAddToCart = async () => {
     try {

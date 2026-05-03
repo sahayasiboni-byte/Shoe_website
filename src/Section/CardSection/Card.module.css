@@ -45,8 +45,17 @@
   padding: 20px;
   margin: 24px 0;
   border-radius: 12px;
-  max-height: 300px;
+  max-height: 320px;
   overflow-y: auto;
+}
+
+
+.cartBody::-webkit-scrollbar {
+  width: 6px;
+}
+.cartBody::-webkit-scrollbar-thumb {
+  background: #ccc;
+  border-radius: 10px;
 }
 
 .emptyCart {
@@ -79,6 +88,7 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  flex: 1;
 }
 
 .cartDetails h4 {
@@ -91,6 +101,46 @@
   font-size: 13px;
   color: #666;
   margin: 2px 0;
+}
+
+
+.qtyBox {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 6px;
+}
+
+.qtyBox button {
+  width: 26px;
+  height: 26px;
+  border: none;
+  background: #000;
+  color: #fff;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.qtyBox span {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+
+.removeBtn {
+  margin-top: 6px;
+  background: #e60023;
+  color: #fff;
+  border: none;
+  padding: 5px 10px;
+  font-size: 12px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.removeBtn:hover {
+  background: #c4001d;
 }
 
 .shopBtn {
@@ -119,29 +169,78 @@
     transform: scale(0.9);
     opacity: 0;
   }
-
   to {
     transform: scale(1);
     opacity: 1;
   }
 }
 
-@media (max-width: 600px) {
+
+@media (max-width: 768px) {
   .cartModal {
-    width: 92%;
-    padding: 24px;
+    width: 95%;
+    padding: 20px;
   }
 
   .cartHeader h2 {
-    font-size: 24px;
+    font-size: 22px;
   }
 
   .cartItem {
+    flex-direction: row;
     gap: 10px;
   }
 
   .cartImage {
     width: 60px;
     height: 60px;
+  }
+
+  .qtyBox button {
+    width: 24px;
+    height: 24px;
+    font-size: 12px;
+  }
+
+  .removeBtn {
+    font-size: 11px;
+    padding: 4px 8px;
+  }
+}
+
+
+@media (max-width: 480px) {
+  .cartModal {
+    width: 96%;
+    padding: 16px;
+    border-radius: 16px;
+  }
+
+  .cartHeader h2 {
+    font-size: 18px;
+  }
+
+  .cartItem {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .cartImage {
+    width: 100%;
+    height: 120px;
+  }
+
+  .cartDetails {
+    width: 100%;
+  }
+
+  .qtyBox {
+    justify-content: space-between;
+    width: 100%;
+  }
+
+  .removeBtn {
+    width: 100%;
+    text-align: center;
   }
 }
