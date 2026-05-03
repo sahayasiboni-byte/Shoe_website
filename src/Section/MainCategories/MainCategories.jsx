@@ -51,7 +51,7 @@ const MainCategories = () => {
               
               <Link
                 key={item.id}
-                to={`/shop?category=${item.id}`}   // 🔥 pass category id
+                to={`/shop?category=${item.id}`}   
                 className={categoriesmodule.link}
                 onClick={scrollToTop}
               >

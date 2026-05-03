@@ -14,7 +14,7 @@ const CardSection = ({ isOpen, onClose }) => {
     if (!isOpen || !userId) return;
 
     axios
-      .get(`https://shoe-backend-oz5k.onrender.com/api/getcart/${userId}/`)
+      .get(`https://shoe-backend-oz5k.onrender.com/api/getcart/${userId}`)
       .then((res) => {
         console.log("CART DATA:", res.data);
         setCartItems(res.data.data || []);
@@ -44,18 +44,18 @@ const CardSection = ({ isOpen, onClose }) => {
           {cartItems.length > 0 ? (
             cartItems.map((item) => (
               <div key={item.id} className={cardmodule.cartItem}>
-                {item.product_image && (
+                {item.product.productimage && (
                   <img
-                    src={item.product_image}
-                    alt={item.product_name}
+                    src={item.product.productimage}
+                    alt={item.product.productname}
                     className={cardmodule.cartImage}
                   />
                 )}
 
                 <div className={cardmodule.cartDetails}>
-                  <h4>{item.product_name}</h4>
+                  <h4>{item.product.productname}</h4>
                   <p>Qty: {item.quantity}</p>
-                  <p>₹{item.product_price}</p>
+                  <p>₹{item.product.currentprice}</p>
                 </div>
               </div>
             ))
