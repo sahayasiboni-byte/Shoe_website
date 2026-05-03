@@ -34,7 +34,7 @@ const AccountSection = () => {
 
     try {
       const res = await axios.post(
-        "https://shoe-backend-oz5k.onrender.com/api/login",
+        "https://shoe-backend-oz5k.onrender.com/api/login/",
         {
           email: email.trim(),
           password: password,
