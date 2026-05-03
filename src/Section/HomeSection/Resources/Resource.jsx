@@ -10,14 +10,12 @@ const Resource = () => {
 
   // const [menuopen,setMenuOpen] = useState(false)
   
-  //   const scrollToTop = () => {
-  //     window.scrollTo({
-  //       top: 0,
-  //       left: 0,
-  //       behavior: "instant" // change to "smooth" if needed
-  //     })
-  //     setMenuOpen(false)
-  //   }
+    const scrollToTop = () => {
+  window.scrollTo({
+    top: 0,
+    behavior: "instant"
+  });
+};
 
   return (
     <div className={resourcemodule.resourcecontainer}>
@@ -25,7 +23,7 @@ const Resource = () => {
 
       <div data-aos="fade-up" className={resourcemodule.imagecontainer}>
 
-        <Link to="/SubBlog" className={resourcemodule.link}>
+        <Link to="/SubBlog" className={resourcemodule.link} onClick={scrollToTop}>
         <div className={resourcemodule.imagebox}>
             <img src={image1} alt="image1" />
             <p>Entertainment . April20,2025</p>

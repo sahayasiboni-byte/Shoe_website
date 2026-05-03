@@ -30,14 +30,12 @@ const Categories = () => {
       });
   }, []);
 
-  // const scrollToTop = () => {
-  //   window.scrollTo({
-  //     top: 0,
-  //     left: 0,
-  //     behavior: "instant",
-  //   });
-  //   setMenuOpen(false);
-  // };
+  const scrollToTop = () => {
+  window.scrollTo({
+    top: 0,
+    behavior: "instant"
+  });
+};
 
   return (
     <div data-aos="fade-up" className={categoriesmodule.catecontainer}>
@@ -80,7 +78,7 @@ const Categories = () => {
               <Link
                 to="/shop"
                 className={categoriesmodule.link}
-                // onClick={scrollToTop}
+                onClick={scrollToTop}
               >
                 <div className={categoriesmodule.card}>
                   <img

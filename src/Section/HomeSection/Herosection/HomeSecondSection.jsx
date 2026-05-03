@@ -7,14 +7,12 @@ import "aos/dist/aos.css";
 const HomeSecondSection = () => {
   // const [menuopen,setMenuOpen] = useState(false)
   
-    // const scrollToTop = () => {
-    //   window.scrollTo({
-    //     top: 0,
-    //     left: 0,
-    //     behavior: "instant" // change to "smooth" if needed
-    //   })
-    //   setMenuOpen(false)
-    // }
+    const scrollToTop = () => {
+  window.scrollTo({
+    top: 0,
+    behavior: "instant"
+  });
+};
 
   return (
     <>
@@ -31,7 +29,7 @@ const HomeSecondSection = () => {
             </button>
           </Link>
 
-          <Link to="/categories" className={Homemodule.link} >
+          <Link to="/categories" className={Homemodule.link} onClick={scrollToTop}>
             <button className={Homemodule.btnsecondary}>
               Categories →
             </button>

@@ -16,14 +16,12 @@ const NewArrival = () => {
 
   // const [menuopen,setMenuOpen] = useState(false);
     
-      // const scrollToTop = () => {
-      //   window.scrollTo({
-      //     top: 0,
-      //     left: 0,
-      //     behavior: "instant" // change to "smooth" if needed
-      //   })
-      //   setMenuOpen(false)
-      // }
+      const scrollToTop = () => {
+  window.scrollTo({
+    top: 0,
+    behavior: "instant"
+  });
+};
 
   const bestSellers = [
     {
@@ -97,7 +95,7 @@ const NewArrival = () => {
 
       <div data-aos="fade-up" className={sellermodule.sellergrid}>
         {bestSellers.map((item) => (
-          <Link to="/shoe" className={sellermodule.link}>
+          <Link to="/shoe" className={sellermodule.link} onClick={scrollToTop}>
           <div data-aos="fade-up" key={item.id} className={sellermodule.card}>
             
             <div className={sellermodule.imageBox}>

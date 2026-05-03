@@ -18,14 +18,12 @@ const Seller = () => {
       });
   }, []);
 
-  // const scrollToTop = () => {
-  //   window.scrollTo({
-  //     top: 0,
-  //     left: 0,
-  //     behavior: "instant",
-  //   });
-  //   setMenuOpen(false);
-  // };
+  const scrollToTop = () => {
+  window.scrollTo({
+    top: 0,
+    behavior: "instant"
+  });
+};
 
   return (
     <div className={sellermodule.sellercotainer}>
@@ -36,7 +34,7 @@ const Seller = () => {
           <Link
             to={`/shoe/${item.id}`}
             className={sellermodule.link}
-            // onClick={scrollToTop}
+            onClick={scrollToTop}
             key={item.id}
           >
             <div className={sellermodule.card}>

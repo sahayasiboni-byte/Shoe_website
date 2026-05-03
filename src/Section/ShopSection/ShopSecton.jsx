@@ -7,15 +7,14 @@ import axios from "axios";
 
 const ShopSecton = () => {
 
-  const [menuopen,setMenuOpen] = useState(false);
+  // const [menuopen,setMenuOpen] = useState(false);
 
   const scrollToTop = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: "instant"
-    });
-    setMenuOpen(false);
-  };
+  window.scrollTo({
+    top: 0,
+    behavior: "instant"
+  });
+};
 
   const [activeCategory, setActiveCategory] = useState("");
   const [activePrice, setActivePrice] = useState("All");

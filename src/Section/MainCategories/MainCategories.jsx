@@ -24,14 +24,12 @@ const MainCategories = () => {
   }, []);
 
   
-  // const scrollToTop = () => {
-  //   window.scrollTo({
-  //     top: 0,
-  //     left: 0,
-  //     behavior: "instant"
-  //   });
-  //   setMenuOpen(false);
-  // };
+  const scrollToTop = () => {
+  window.scrollTo({
+    top: 0,
+    behavior: "instant"
+  });
+};
 
   return (
     <div className={categoriesmodule.catecontainer}>
@@ -55,7 +53,7 @@ const MainCategories = () => {
                 key={item.id}
                 to={`/shop?category=${item.id}`}   // 🔥 pass category id
                 className={categoriesmodule.link}
-                // onClick={scrollToTop}
+                onClick={scrollToTop}
               >
                 <div className={categoriesmodule.maincard}>
                   
