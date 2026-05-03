@@ -3,19 +3,18 @@ import Homemodule from './HomeSecond.module.css'
 import heroproduct from '../../../assets/hero-product.jpg'
 import { Link } from 'react-router-dom';
 import "aos/dist/aos.css";
-import {useState } from "react";
 
 const HomeSecondSection = () => {
-  const [menuopen,setMenuOpen] = useState(false)
+  // const [menuopen,setMenuOpen] = useState(false)
   
-    const scrollToTop = () => {
-      window.scrollTo({
-        top: 0,
-        left: 0,
-        behavior: "instant" // change to "smooth" if needed
-      })
-      setMenuOpen(false)
-    }
+    // const scrollToTop = () => {
+    //   window.scrollTo({
+    //     top: 0,
+    //     left: 0,
+    //     behavior: "instant" // change to "smooth" if needed
+    //   })
+    //   setMenuOpen(false)
+    // }
 
   return (
     <>
@@ -26,13 +25,13 @@ const HomeSecondSection = () => {
           </h1>
 
           <div className={Homemodule.herobuttons}>
-          <Link to="/shop" className={Homemodule.link} onClick={scrollToTop}>
+          <Link to="/shop" className={Homemodule.link} >
             <button className={Homemodule.btnprimary}>
               Shop Now →
             </button>
           </Link>
 
-          <Link to="/categories" className={Homemodule.link} onClick={scrollToTop}>
+          <Link to="/categories" className={Homemodule.link} >
             <button className={Homemodule.btnsecondary}>
               Categories →
             </button>
@@ -41,7 +40,7 @@ const HomeSecondSection = () => {
         </div>
 
       <div data-aos="fade-up" className={Homemodule.herocard}>
-      <Link to="/shop" className={Homemodule.link} onClick={scrollToTop}>
+      <Link to="/shop" className={Homemodule.link} >
         <img src={heroproduct} alt="Shoe" />
       </Link>
         <p> Explore New Arrivals <span>→</span> </p>

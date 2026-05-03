@@ -1,4 +1,4 @@
-import React,{useState} from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import sellermodule from "../SellerSection/Seller.module.css";
 
@@ -14,16 +14,16 @@ import seller8 from "../../../assets/new8.png";
 
 const NewArrival = () => {
 
-  const [menuopen,setMenuOpen] = useState(false);
+  // const [menuopen,setMenuOpen] = useState(false);
     
-      const scrollToTop = () => {
-        window.scrollTo({
-          top: 0,
-          left: 0,
-          behavior: "instant" // change to "smooth" if needed
-        })
-        setMenuOpen(false)
-      }
+      // const scrollToTop = () => {
+      //   window.scrollTo({
+      //     top: 0,
+      //     left: 0,
+      //     behavior: "instant" // change to "smooth" if needed
+      //   })
+      //   setMenuOpen(false)
+      // }
 
   const bestSellers = [
     {
@@ -97,7 +97,7 @@ const NewArrival = () => {
 
       <div data-aos="fade-up" className={sellermodule.sellergrid}>
         {bestSellers.map((item) => (
-          <Link to="/shoe" className={sellermodule.link} onClick={scrollToTop}>
+          <Link to="/shoe" className={sellermodule.link}>
           <div data-aos="fade-up" key={item.id} className={sellermodule.card}>
             
             <div className={sellermodule.imageBox}>

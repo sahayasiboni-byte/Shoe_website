@@ -4,7 +4,7 @@ import sellermodule from "../SellerSection/Seller.module.css";
 import axios from "axios";
 
 const Seller = () => {
-  const [menuopen, setMenuOpen] = useState(false);
+  // const [menuopen, setMenuOpen] = useState(false);
   const [seller, setSeller] = useState([]);
 
   useEffect(() => {
@@ -18,14 +18,14 @@ const Seller = () => {
       });
   }, []);
 
-  const scrollToTop = () => {
-    window.scrollTo({
-      top: 0,
-      left: 0,
-      behavior: "instant",
-    });
-    setMenuOpen(false);
-  };
+  // const scrollToTop = () => {
+  //   window.scrollTo({
+  //     top: 0,
+  //     left: 0,
+  //     behavior: "instant",
+  //   });
+  //   setMenuOpen(false);
+  // };
 
   return (
     <div className={sellermodule.sellercotainer}>
@@ -36,7 +36,7 @@ const Seller = () => {
           <Link
             to={`/shoe/${item.id}`}
             className={sellermodule.link}
-            onClick={scrollToTop}
+            // onClick={scrollToTop}
             key={item.id}
           >
             <div className={sellermodule.card}>

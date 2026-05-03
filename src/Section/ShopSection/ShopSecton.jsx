@@ -7,15 +7,15 @@ import axios from "axios";
 
 const ShopSecton = () => {
 
-  const [menuopen,setMenuOpen] = useState(false);
+  // const [menuopen,setMenuOpen] = useState(false);
 
-  const scrollToTop = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: "instant"
-    });
-    setMenuOpen(false);
-  };
+  // const scrollToTop = () => {
+  //   window.scrollTo({
+  //     top: 0,
+  //     behavior: "instant"
+  //   });
+  //   setMenuOpen(false);
+  // };
 
   const [activeCategory, setActiveCategory] = useState("");
   const [activePrice, setActivePrice] = useState("All");
@@ -195,7 +195,7 @@ const ShopSecton = () => {
         {/* PRODUCTS */}
         <div className={shopemodule.productGrid}>
           {products.map((item) => (
-            <Link key={item.id} to={`/shoe/${item.id}`} className={sellermodule.link} onClick={scrollToTop}>
+            <Link key={item.id} to={`/shoe/${item.id}`} className={sellermodule.link} >
               <div className={shopemodule.productCard}>
                 <div className={shopemodule.imageWrapper}>
                   <img

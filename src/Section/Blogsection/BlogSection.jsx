@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React from "react";
 import blogmodule from "./Blog.module.css";
 import { Link } from "react-router-dom";
 
@@ -103,16 +103,16 @@ const BlogSection = () => {
     },
   ];
 
-  const [menuopen,setMenuOpen] = useState(false)
+  // const [menuopen,setMenuOpen] = useState(false)
     
-      const scrollToTop = () => {
-        window.scrollTo({
-          top: 0,
-          left: 0,
-          behavior: "instant" // change to "smooth" if needed
-        })
-        setMenuOpen(false)
-      }
+  //     const scrollToTop = () => {
+  //       window.scrollTo({
+  //         top: 0,
+  //         left: 0,
+  //         behavior: "instant" // change to "smooth" if needed
+  //       })
+  //       setMenuOpen(false)
+  //     }
 
   return (
     <div className={blogmodule.blogcotainer}>
@@ -121,7 +121,7 @@ const BlogSection = () => {
       <div className={blogmodule.sellergrid}>
         {blogs.map((item) => (
 
-          <Link to="/SubBlog" className={blogmodule.link} onClick={scrollToTop}>
+          <Link to="/SubBlog" className={blogmodule.link} >
           <div key={item.id} className={blogmodule.card} data-aos="fade-up">
             <div className={blogmodule.imageBox}>
               <img src={item.image} alt={item.title} />

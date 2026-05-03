@@ -1,4 +1,4 @@
-import React ,{useState}from 'react'
+import React from 'react'
 import { Link } from 'react-router-dom'
 import resourcemodule from './Resource.module.css'
 import image1 from '../../../assets/resource1.png'
@@ -8,16 +8,16 @@ import image4 from '../../../assets/resource4.png'
 
 const Resource = () => {
 
-  const [menuopen,setMenuOpen] = useState(false)
+  // const [menuopen,setMenuOpen] = useState(false)
   
-    const scrollToTop = () => {
-      window.scrollTo({
-        top: 0,
-        left: 0,
-        behavior: "instant" // change to "smooth" if needed
-      })
-      setMenuOpen(false)
-    }
+  //   const scrollToTop = () => {
+  //     window.scrollTo({
+  //       top: 0,
+  //       left: 0,
+  //       behavior: "instant" // change to "smooth" if needed
+  //     })
+  //     setMenuOpen(false)
+  //   }
 
   return (
     <div className={resourcemodule.resourcecontainer}>
@@ -25,7 +25,7 @@ const Resource = () => {
 
       <div data-aos="fade-up" className={resourcemodule.imagecontainer}>
 
-        <Link to="/SubBlog" className={resourcemodule.link} onClick={scrollToTop}>
+        <Link to="/SubBlog" className={resourcemodule.link}>
         <div className={resourcemodule.imagebox}>
             <img src={image1} alt="image1" />
             <p>Entertainment . April20,2025</p>
@@ -33,7 +33,7 @@ const Resource = () => {
         </div>
         </Link>
 
-        <Link to="/SubBlog" className={resourcemodule.link} onClick={scrollToTop}>
+        <Link to="/SubBlog" className={resourcemodule.link}>
         <div className={resourcemodule.imagebox}>
             <img src={image2} alt="image2" />
             <p>Technology . May1,2025</p>
@@ -41,7 +41,7 @@ const Resource = () => {
         </div>
         </Link>
 
-        <Link to="/SubBlog" className={resourcemodule.link} onClick={scrollToTop}>
+        <Link to="/SubBlog" className={resourcemodule.link}>
         <div className={resourcemodule.imagebox}>
             <img src={image3} alt="image3" />
             <p>Social Issues . June12,2025</p>
@@ -49,7 +49,7 @@ const Resource = () => {
         </div>
         </Link>
 
-        <Link to="/SubBlog" className={resourcemodule.link} onClick={scrollToTop}>
+        <Link to="/SubBlog" className={resourcemodule.link} >
         <div className={resourcemodule.imagebox}>
             <img src={image4} alt="image4" />
             <p>Fashine Guide . July7,2025</p>

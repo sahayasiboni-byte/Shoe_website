@@ -10,7 +10,7 @@ import "swiper/css/navigation";
 
 const Categories = () => {
   const [categories, setCategories] = useState([]);
-  const [menuopen,setMenuOpen] = useState(false);
+  // const [menuopen,setMenuOpen] = useState(false);
   const [loading, setLoading] = useState(true);
 
   const prevRef = useRef(null);
@@ -30,14 +30,14 @@ const Categories = () => {
       });
   }, []);
 
-  const scrollToTop = () => {
-    window.scrollTo({
-      top: 0,
-      left: 0,
-      behavior: "instant",
-    });
-    setMenuOpen(false);
-  };
+  // const scrollToTop = () => {
+  //   window.scrollTo({
+  //     top: 0,
+  //     left: 0,
+  //     behavior: "instant",
+  //   });
+  //   setMenuOpen(false);
+  // };
 
   return (
     <div data-aos="fade-up" className={categoriesmodule.catecontainer}>
@@ -80,7 +80,7 @@ const Categories = () => {
               <Link
                 to="/shop"
                 className={categoriesmodule.link}
-                onClick={scrollToTop}
+                // onClick={scrollToTop}
               >
                 <div className={categoriesmodule.card}>
                   <img
