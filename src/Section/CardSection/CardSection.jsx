@@ -25,53 +25,46 @@ const CardSection = ({ isOpen, onClose }) => {
       });
   }, [userId, isOpen]);
 
-
-
-// quantity update
+  // quantity update
   const updateQuantity = async (id, action) => {
-  try {
-    const res = await axios.put(
-      `https://shoe-backend-oz5k.onrender.com/api/updatequantity/${id}/`,
-      {
-        action: action,
-      }
-    );
+    try {
+      const res = await axios.put(
+        `https://shoe-backend-oz5k.onrender.com/api/updatequantity/${id}/`,
+        {
+          action: action,
+        }
+      );
 
-    setCartItems((prev) =>
-      prev.map((item) =>
-        item.id === id
-          ? { ...item, quantity: res.data.quantity }
-          : item
-      )
-    );
-  } catch (error) {
-    console.log(error);
-    alert("Quantity update failed");
-  }
-};
+      setCartItems((prev) =>
+        prev.map((item) =>
+          item.id === id
+            ? { ...item, quantity: res.data.quantity }
+            : item
+        )
+      );
+    } catch (error) {
+      console.log(error);
+      alert("Quantity update failed");
+    }
+  };
 
-  // const removeItem = async (cartId) => {
-  // console.log("Delete Cart ID:", cartId);
-
-  // if (!cartId) {
-  //   alert("Cart ID not found");
-  //   return;
-  // }
-
+  // remove item
   const removeItem = async (id) => {
-  try {
-    await axios.delete(`https://shoe-backend-oz5k.onrender.com/api/delete/${id}/`);
+    try {
+      await axios.delete(
+        `https://shoe-backend-oz5k.onrender.com/api/delete/${id}/`
+      );
 
-    setCartItems((prev) => prev.filter((item) => item.id !== id));
+      setCartItems((prev) =>
+        prev.filter((item) => item.id !== id)
+      );
 
-    alert("Item removed from cart");
-  } catch (err) {
-    console.log(err);
-    alert("Failed to remove item");
-  }
-};
-
-// };
+      alert("Item removed from cart");
+    } catch (err) {
+      console.log(err);
+      alert("Failed to remove item");
+    }
+  };
 
   if (!isOpen) return null;
 
@@ -106,36 +99,61 @@ const CardSection = ({ isOpen, onClose }) => {
 
                 <div className={cardmodule.cartDetails}>
                   <h4>{item.product?.productname || "Product Name"}</h4>
+
                   <p>₹{item.product?.currentprice}</p>
- 
-                <div className={cardmodule.qtyBox}>
-                  <button onClick={() => updateQuantity(item.id, "decrease")}>
-                   -
-                  </button>
 
-                 <span>{item.quantity}</span>
+                  <div className={cardmodule.qtyBox}>
+                    <button
+                      onClick={() =>
+                        updateQuantity(item.id, "decrease")
+                      }
+                    >
+                      -
+                    </button>
 
-                 <button onClick={() => updateQuantity(item.id, "increase")}>
-                  +
-                 </button>
+                    <span>{item.quantity}</span>
 
-                 </div>
-
+                    <button
+                      onClick={() =>
+                        updateQuantity(item.id, "increase")
+                      }
+                    >
+                      +
+                    </button>
+                  </div>
                 </div>
 
-                 <button type="button" className={cardmodule.removeBtn} 
-                   onClick={() => removeItem(item.id)} >
+                <button
+                  type="button"
+                  className={cardmodule.removeBtn}
+                  onClick={() => removeItem(item.id)}
+                >
                   Remove
-                 </button>
+                </button>
+
+                <Link to="/order" state={{ product: item }} className={cardmodule.link}
+                 onClick={onClose} >
+                <button className={cardmodule.orderBtn}>
+                 Order Now
+                </button>
+                </Link>
               </div>
             ))
           ) : (
-            <p className={cardmodule.emptyCart}>No items found.</p>
+            <p className={cardmodule.emptyCart}>
+              No items found.
+            </p>
           )}
         </div>
 
-        <Link to="/shop" className={cardmodule.link} onClick={onClose}>
-          <button className={cardmodule.shopBtn}>Shop Now →</button>
+        <Link
+          to="/shop"
+          className={cardmodule.link}
+          onClick={onClose}
+        >
+          <button className={cardmodule.shopBtn}>
+            Shop Now →
+          </button>
         </Link>
       </div>
     </div>
