@@ -25,47 +25,53 @@ const CardSection = ({ isOpen, onClose }) => {
       });
   }, [userId, isOpen]);
 
-  const increaseQty = (id) => {
+
+
+// quantity update
+  const updateQuantity = async (id, action) => {
+  try {
+    const res = await axios.put(
+      `https://shoe-backend-oz5k.onrender.com/api/updatequantity/${id}/`,
+      {
+        action: action,
+      }
+    );
+
     setCartItems((prev) =>
       prev.map((item) =>
         item.id === id
-          ? { ...item, quantity: item.quantity + 1 }
+          ? { ...item, quantity: res.data.quantity }
           : item
       )
     );
-  };
-
-  const decreaseQty = (id) => {
-    setCartItems((prev) =>
-      prev.map((item) =>
-        item.id === id && item.quantity > 1
-          ? { ...item, quantity: item.quantity - 1 }
-          : item
-      )
-    );
-  };
-
-  const removeItem = async (cartId) => {
-  console.log("Delete Cart ID:", cartId);
-
-  if (!cartId) {
-    alert("Cart ID not found");
-    return;
+  } catch (error) {
+    console.log(error);
+    alert("Quantity update failed");
   }
+};
 
+  // const removeItem = async (cartId) => {
+  // console.log("Delete Cart ID:", cartId);
+
+  // if (!cartId) {
+  //   alert("Cart ID not found");
+  //   return;
+  // }
+
+  const removeItem = async (id) => {
   try {
-    await axios.delete(`http://127.0.0.1:8000/api/delete/${cartId}`);
+    await axios.delete(`https://shoe-backend-oz5k.onrender.com/api/delete/${id}/`);
 
-    setCartItems((prev) =>
-      prev.filter((item) => (item.cart_id || item.id) !== cartId)
-    );
+    setCartItems((prev) => prev.filter((item) => item.id !== id));
 
     alert("Item removed from cart");
   } catch (err) {
-    console.error("Delete Error:", err.response?.data || err);
+    console.log(err);
     alert("Failed to remove item");
   }
 };
+
+// };
 
   if (!isOpen) return null;
 
@@ -101,17 +107,24 @@ const CardSection = ({ isOpen, onClose }) => {
                 <div className={cardmodule.cartDetails}>
                   <h4>{item.product?.productname || "Product Name"}</h4>
                   <p>₹{item.product?.currentprice}</p>
+ 
+                <div className={cardmodule.qtyBox}>
+                  <button onClick={() => updateQuantity(item.id, "decrease")}>
+                   -
+                  </button>
 
-                  <div className={cardmodule.qtyBox}>
-                    <button onClick={() => decreaseQty(item.id)}>-</button>
-                    <span>{item.quantity}</span>
-                    <button onClick={() => increaseQty(item.id)}>+</button>
-                  </div>
+                 <span>{item.quantity}</span>
+
+                 <button onClick={() => updateQuantity(item.id, "increase")}>
+                  +
+                 </button>
+
+                 </div>
 
                 </div>
 
-                 <button type="button" className={cardmodule.removeBtn}
-                  onClick={() => removeItem(item.cart_id || item.id)} >
+                 <button type="button" className={cardmodule.removeBtn} 
+                   onClick={() => removeItem(item.id)} >
                   Remove
                  </button>
               </div>
