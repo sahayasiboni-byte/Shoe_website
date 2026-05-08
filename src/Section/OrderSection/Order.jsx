@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useLocation } from "react-router-dom";
 import Cookies from "js-cookie";
 
@@ -6,11 +6,15 @@ import ordermodule from "./Order.module.css";
 
 const Order = () => {
   const location = useLocation();
-
   const item = location.state?.product;
 
   const username = Cookies.get("username");
   const email = Cookies.get("email");
+
+  const [address, setAddress] = useState("");
+  const [phone, setPhone] = useState("");
+  const [payment, setPayment] = useState("");
+  const [showPopup, setShowPopup] = useState(false);
 
   if (!item) {
     return <h2>No Product Found</h2>;
@@ -25,11 +29,29 @@ const Order = () => {
 
   const handlePlaceOrder = (e) => {
     e.preventDefault();
-    alert("Order placed successfully");
+
+    setShowPopup(true);
+
+    setAddress("");
+    setPhone("");
+    setPayment("");
+
+    setTimeout(() => {
+      setShowPopup(false);
+    }, 3000);
   };
 
   return (
     <div className={ordermodule.orderContainer}>
+      {showPopup && (
+        <div className={ordermodule.popupOverlay}>
+          <div className={ordermodule.popupBox}>
+            <div className={ordermodule.tickIcon}>✔</div>
+            <h2>Order Placed Successfully</h2>
+          </div>
+        </div>
+      )}
+
       <h1 className={ordermodule.orderTitle}>Order Page</h1>
 
       <div className={ordermodule.orderWrapper}>
@@ -56,6 +78,8 @@ const Order = () => {
             type="text"
             placeholder="Enter Address"
             required
+            value={address}
+            onChange={(e) => setAddress(e.target.value)}
             className={ordermodule.orderInput}
           />
 
@@ -63,6 +87,8 @@ const Order = () => {
             type="text"
             placeholder="Phone Number"
             required
+            value={phone}
+            onChange={(e) => setPhone(e.target.value)}
             className={ordermodule.orderInput}
           />
 
@@ -70,17 +96,33 @@ const Order = () => {
 
           <div className={ordermodule.paymentBox}>
             <label className={ordermodule.paymentOption}>
-              <input type="radio" name="payment" required />
+              <input
+                type="radio"
+                name="payment"
+                required
+                checked={payment === "Cash on Delivery"}
+                onChange={() => setPayment("Cash on Delivery")}
+              />
               Cash on Delivery
             </label>
 
             <label className={ordermodule.paymentOption}>
-              <input type="radio" name="payment" />
+              <input
+                type="radio"
+                name="payment"
+                checked={payment === "UPI Payment"}
+                onChange={() => setPayment("UPI Payment")}
+              />
               UPI Payment
             </label>
 
             <label className={ordermodule.paymentOption}>
-              <input type="radio" name="payment" />
+              <input
+                type="radio"
+                name="payment"
+                checked={payment === "Credit / Debit Card"}
+                onChange={() => setPayment("Credit / Debit Card")}
+              />
               Credit / Debit Card
             </label>
           </div>
@@ -111,21 +153,15 @@ const Order = () => {
             Offer Price: ₹{offerPrice}
           </p>
 
-          <p className={ordermodule.productPrice}>
-            Discount: ₹{discount}
-          </p>
+          <p className={ordermodule.productPrice}>Discount: ₹{discount}</p>
 
           <p className={ordermodule.productPrice}>
             Delivery Charge: ₹{deliveryCharge}
           </p>
 
-          <p className={ordermodule.productPrice}>
-            GST (18%): ₹{gst}
-          </p>
+          <p className={ordermodule.productPrice}>GST (18%): ₹{gst}</p>
 
-          <p className={ordermodule.productQty}>
-            Quantity: {item.quantity}
-          </p>
+          <p className={ordermodule.productQty}>Quantity: {item.quantity}</p>
 
           <h2 className={ordermodule.totalPrice}>
             Total Amount: ₹{totalPrice}

@@ -125,3 +125,152 @@
   gap: 10px;
   font-size: 15px;
 }
+
+.popupOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.popupBox {
+  background: white;
+  padding: 30px;
+  border-radius: 12px;
+  text-align: center;
+  width: 320px;
+  animation: popup 0.3s ease;
+}
+
+.tickIcon {
+  width: 70px;
+  height: 70px;
+  background: green;
+  color: white;
+  border-radius: 50%;
+  font-size: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto 15px;
+}
+
+@keyframes popup {
+  from {
+    transform: scale(0.7);
+    opacity: 0;
+  }
+
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+
+/* Responsive Design */
+
+@media screen and (max-width: 768px) {
+  .orderContainer {
+    padding: 20px;
+  }
+
+  .orderTitle {
+    font-size: 26px;
+    text-align: center;
+  }
+
+  .orderWrapper {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .orderForm,
+  .productSection {
+    width: 100%;
+    min-width: 100%;
+    padding: 20px;
+  }
+
+  .productImage {
+    width: 100%;
+    max-width: 100%;
+    height: 250px;
+    object-fit: cover;
+  }
+
+  .productName {
+    font-size: 20px;
+  }
+
+  .productPrice,
+  .productQty {
+    font-size: 15px;
+  }
+
+  .totalPrice {
+    font-size: 22px;
+  }
+
+  .placeOrderBtn {
+    font-size: 15px;
+    padding: 10px;
+  }
+
+  .popupBox {
+    width: 90%;
+    padding: 25px;
+  }
+
+  .tickIcon {
+    width: 60px;
+    height: 60px;
+    font-size: 32px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .orderContainer {
+    padding: 15px;
+  }
+
+  .orderTitle {
+    font-size: 22px;
+  }
+
+  .orderForm,
+  .productSection {
+    padding: 15px;
+  }
+
+  .orderInput {
+    padding: 10px;
+    font-size: 14px;
+  }
+
+  .paymentOption {
+    font-size: 14px;
+  }
+
+  .productImage {
+    height: 220px;
+  }
+
+  .productName {
+    font-size: 18px;
+  }
+
+  .totalPrice {
+    font-size: 20px;
+  }
+
+  .popupBox h2 {
+    font-size: 20px;
+  }
+}

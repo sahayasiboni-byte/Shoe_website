@@ -30,46 +30,48 @@ const AccountSection = () => {
   };
 
   const accountSubmit = async () => {
-  if (!validate()) return;
+    if (!validate()) return;
 
-  try {
-    const res = await axios.post(
-      "https://shoe-backend-oz5k.onrender.com/api/login",
-      {
-        email: email.trim(),
-        password: password,
-      },
-      {
-        headers: {
-          "Content-Type": "application/json",
+    try {
+      const res = await axios.post(
+        "https://shoe-backend-oz5k.onrender.com/api/login",
+        {
+          email: email.trim(),
+          password: password,
         },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      console.log("LOGIN RESPONSE:", res.data);
+
+      if (res.data?.data) {
+        Cookies.set("username", res.data.data.name);
+        Cookies.set("userid", res.data.data.id);
+        Cookies.set("email", res.data.data.email);
+
+        alert("SignIn Successful");
+
+        navigate("/");
+      } else {
+        alert(res.data?.message || "Login failed");
       }
-    );
+    } catch (err) {
+      console.error("LOGIN ERROR:", err.response?.data || err);
 
-    console.log("LOGIN RESPONSE:", res.data);
+      const message =
+        err.response?.data?.message ||
+        err.response?.data?.error ||
+        err.response?.data?.detail ||
+        err.message ||
+        "Login failed";
 
-    if (res.data?.data) {
-      Cookies.set("username", res.data.data.name);
-      Cookies.set("userid", res.data.data.id);
-
-      alert("SignIn Successful");
-      navigate("/");
-    } else {
-      alert(res.data?.message || "Login failed");
+      alert(message);
     }
-  } catch (err) {
-    console.error("LOGIN ERROR:", err.response?.data || err);
-
-    const message =
-      err.response?.data?.message ||
-      err.response?.data?.error ||
-      err.response?.data?.detail ||
-      err.message ||
-      "Login failed";
-
-    alert(message);
-  }
-};
+  };
 
   return (
     <div className={accountmodule.accountcontainer}>
@@ -77,6 +79,7 @@ const AccountSection = () => {
 
       <div className={accountmodule.form}>
         <label>Email</label>
+
         <input
           className={accountmodule.accountinput}
           type="email"
@@ -85,11 +88,15 @@ const AccountSection = () => {
           onChange={(e) => setEmail(e.target.value)}
           autoComplete="email"
         />
+
         {error.email && (
-          <span className={accountmodule.error}>{error.email}</span>
+          <span className={accountmodule.error}>
+            {error.email}
+          </span>
         )}
 
         <label>Password</label>
+
         <input
           type="password"
           className={accountmodule.accountinput}
@@ -98,8 +105,11 @@ const AccountSection = () => {
           onChange={(e) => setPassword(e.target.value)}
           autoComplete="current-password"
         />
+
         {error.password && (
-          <span className={accountmodule.error}>{error.password}</span>
+          <span className={accountmodule.error}>
+            {error.password}
+          </span>
         )}
 
         <button onClick={accountSubmit}>
@@ -108,7 +118,10 @@ const AccountSection = () => {
 
         <div className={accountmodule.signupRow}>
           <p>Don't have an account?</p>
-          <Link to="/signup">Sign Up</Link>
+
+          <Link to="/signup">
+            Sign Up
+          </Link>
         </div>
       </div>
     </div>
