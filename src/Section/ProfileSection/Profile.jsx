@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 import { IoIosLogOut } from "react-icons/io";
+
 import {
   FaUserEdit,
   FaShoppingBag,
@@ -12,11 +13,31 @@ import {
   FaBell,
   FaGift,
   FaMoon,
+  FaSun,
   FaFileInvoice,
 } from "react-icons/fa";
 
 const Profile = () => {
+
   const navigate = useNavigate();
+
+  const [darkMode, setDarkMode] = useState(
+    localStorage.getItem("theme") === "dark"
+  );
+
+  useEffect(() => {
+    if (darkMode) {
+      document.body.style.backgroundColor = "#121212";
+      document.body.style.color = "#ffffff";
+
+      localStorage.setItem("theme", "dark");
+    } else {
+      document.body.style.backgroundColor = "#f5f5f5";
+      document.body.style.color = "#000000";
+
+      localStorage.setItem("theme", "light");
+    }
+  }, [darkMode]);
 
   const name = Cookies.get("username") || "User";
   const email = Cookies.get("email") || "No email found";
@@ -25,48 +46,140 @@ const Profile = () => {
     Cookies.remove("username");
     Cookies.remove("userid");
     Cookies.remove("email");
+
     navigate("/account");
   };
 
   const menuItems = [
-    { title: "Edit Profile", icon: <FaUserEdit />, path: "/edit-profile" },
-    { title: "Order History", icon: <FaShoppingBag />, path: "/order-history" },
-    { title: "Track Order", icon: <FaTruck />, path: "/track-order" },
-    { title: "Wishlist", icon: <FaHeart />, path: "/wishlist" },
-    { title: "Saved Address", icon: <FaMapMarkerAlt />, path: "/saved-address" },
-    { title: "Change Password", icon: <FaLock />, path: "/change-password" },
-    { title: "Notifications", icon: <FaBell />, path: "/notifications" },
-    { title: "Coupons & Rewards", icon: <FaGift />, path: "/coupons" },
-    { title: "Download Invoice", icon: <FaFileInvoice />, path: "/invoice" },
-    { title: "Dark Mode", icon: <FaMoon />, path: "/settings" },
+    {
+      title: "Edit Profile",
+      icon: <FaUserEdit />,
+      action: () => navigate("/edit-profile"),
+    },
+
+    {
+      title: "Order History",
+      icon: <FaShoppingBag />,
+      action: () => navigate("/order-history"),
+    },
+
+    {
+      title: "Track Order",
+      icon: <FaTruck />,
+      action: () => navigate("/track-order"),
+    },
+
+    {
+      title: "Wishlist",
+      icon: <FaHeart />,
+      action: () => navigate("/wishlist"),
+    },
+
+    {
+      title: "Saved Address",
+      icon: <FaMapMarkerAlt />,
+      action: () => navigate("/saved-address"),
+    },
+
+    {
+      title: "Change Password",
+      icon: <FaLock />,
+      action: () => navigate("/change-password"),
+    },
+
+    {
+      title: "Notifications",
+      icon: <FaBell />,
+      action: () => navigate("/notifications"),
+    },
+
+    {
+      title: "Coupons & Rewards",
+      icon: <FaGift />,
+      action: () => navigate("/coupons"),
+    },
+
+    {
+      title: "Download Invoice",
+      icon: <FaFileInvoice />,
+      action: () => {
+        alert("Invoice Download Started");
+      },
+    },
+
+    {
+      title: darkMode ? "Light Mode" : "Dark Mode",
+      icon: darkMode ? <FaSun /> : <FaMoon />,
+      action: () => setDarkMode(!darkMode),
+    },
   ];
 
   return (
-    <div style={styles.page}>
-      <div style={styles.card}>
+    <div
+      style={{
+        ...styles.page,
+        background: darkMode
+          ? "linear-gradient(135deg, #121212, #1e1e1e)"
+          : "linear-gradient(135deg, #f5f5f5, #e8e8e8)",
+      }}
+    >
+      <div
+        style={{
+          ...styles.card,
+          background: darkMode ? "#1f1f1f" : "#fff",
+        }}
+      >
         <div style={styles.profileTop}>
           <div style={styles.avatar}>
             {name.charAt(0).toUpperCase()}
           </div>
 
-          <h1 style={styles.name}>{name}</h1>
-          <p style={styles.email}>{email}</p>
+          <h1
+            style={{
+              ...styles.name,
+              color: darkMode ? "#fff" : "#000",
+            }}
+          >
+            {name}
+          </h1>
+
+          <p
+            style={{
+              ...styles.email,
+              color: darkMode ? "#ccc" : "#666",
+            }}
+          >
+            {email}
+          </p>
         </div>
 
         <div style={styles.menuGrid}>
           {menuItems.map((item, index) => (
             <button
               key={index}
-              style={styles.menuBtn}
-              onClick={() => navigate(item.path)}
+              style={{
+                ...styles.menuBtn,
+                background: darkMode ? "#2b2b2b" : "#fafafa",
+                color: darkMode ? "#fff" : "#000",
+                border: darkMode
+                  ? "1px solid #444"
+                  : "1px solid #ddd",
+              }}
+              onClick={item.action}
             >
-              <span style={styles.icon}>{item.icon}</span>
+              <span style={styles.icon}>
+                {item.icon}
+              </span>
+
               {item.title}
             </button>
           ))}
         </div>
 
-        <button style={styles.logoutBtn} onClick={handleLogout}>
+        <button
+          style={styles.logoutBtn}
+          onClick={handleLogout}
+        >
           <IoIosLogOut size={22} />
           Logout
         </button>
@@ -78,7 +191,6 @@ const Profile = () => {
 const styles = {
   page: {
     minHeight: "100vh",
-    background: "linear-gradient(135deg, #f5f5f5, #e8e8e8)",
     padding: "40px 20px",
     display: "flex",
     justifyContent: "center",
@@ -87,7 +199,6 @@ const styles = {
   card: {
     width: "100%",
     maxWidth: "900px",
-    background: "#fff",
     borderRadius: "20px",
     padding: "35px",
     boxShadow: "0 10px 30px rgba(0,0,0,0.12)",
@@ -102,7 +213,7 @@ const styles = {
     width: "90px",
     height: "90px",
     borderRadius: "50%",
-    background: "#000",
+    background: "#ff6b00",
     color: "#fff",
     display: "flex",
     alignItems: "center",
@@ -118,7 +229,6 @@ const styles = {
   },
 
   email: {
-    color: "#666",
     fontSize: "16px",
   },
 
@@ -130,9 +240,7 @@ const styles = {
 
   menuBtn: {
     padding: "18px",
-    border: "1px solid #ddd",
     borderRadius: "14px",
-    background: "#fafafa",
     cursor: "pointer",
     fontSize: "16px",
     fontWeight: "600",
@@ -140,12 +248,11 @@ const styles = {
     alignItems: "center",
     gap: "12px",
     transition: "0.3s",
-    color:"black",
   },
 
   icon: {
     fontSize: "20px",
-    color: "#000",
+    color: "#ff6b00",
   },
 
   logoutBtn: {
@@ -164,7 +271,6 @@ const styles = {
     justifyContent: "center",
     gap: "10px",
   },
-
 };
 
 export default Profile;

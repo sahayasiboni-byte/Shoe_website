@@ -4,7 +4,7 @@ import { IoSearch } from "react-icons/io5";
 import { MdOutlineShoppingCart } from "react-icons/md";
 import { VscAccount } from "react-icons/vsc";
 import { IoIosMenu, IoIosClose } from "react-icons/io";
-import { Link, useNavigate } from "react-router-dom";
+import { Link} from "react-router-dom";
 import CartModal from "../../Section/CardSection/CardSection";
 import Cookies from "js-cookie";
 // import { IoIosLogOut } from "react-icons/io";
@@ -15,7 +15,7 @@ const Navbar = () => {
   const [searchOpen, setSearchOpen] = useState(false);
   const [search, setSearch] = useState("");
 
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const name = Cookies.get("username");
 
   const products = [
