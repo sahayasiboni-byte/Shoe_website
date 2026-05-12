@@ -13,6 +13,7 @@ import Shop from './Shop/Shope'
 import SubBlog from './SubBlog/SubBlog'
 import Shoe from './Shoe/Shoe'
 import Order from '../Section/OrderSection/Order'
+import Profile from '../Section/ProfileSection/Profile'
 const Router = () => {
   return (
     <div>
@@ -29,6 +30,7 @@ const Router = () => {
       <Route path='/subblog' element={<SubBlog/>}/>
       <Route path='/shoe/:id' element={<Shoe/>}/>
       <Route path='/order' element={<Order/>}/>
+      <Route path='/profile' element={<Profile/>}/>
       </Routes>
       <Footer />
     </div>

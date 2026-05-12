@@ -7,7 +7,7 @@ import { IoIosMenu, IoIosClose } from "react-icons/io";
 import { Link, useNavigate } from "react-router-dom";
 import CartModal from "../../Section/CardSection/CardSection";
 import Cookies from "js-cookie";
-import { IoIosLogOut } from "react-icons/io";
+// import { IoIosLogOut } from "react-icons/io";
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -39,12 +39,12 @@ const Navbar = () => {
     setMenuOpen(false);
   };
 
-  const handleLogout = () => {
-    Cookies.remove("username");
-    Cookies.remove("userid");
-    alert("Logged out successfully");
-    navigate("/account");
-  };
+  // const handleLogout = () => {
+  //   Cookies.remove("username");
+  //   Cookies.remove("userid");
+  //   alert("Logged out successfully");
+  //   navigate("/account");
+  // };
 
   return (
     <div className={Homemodule.navbar}>
@@ -78,16 +78,20 @@ const Navbar = () => {
 
           {name ? (
             <div className={Homemodule.userSection}>
-              <span className={Homemodule.username}>{name}</span>
-              <span onClick={handleLogout} className={Homemodule.logoutIcon}>
-                <IoIosLogOut />
-              </span>
-            </div>
-          ) : (
-            <Link to="/account" className={Homemodule.link} onClick={scrollToTop}>
-              <span><VscAccount /></span>
-            </Link>
-          )}
+              <Link to="/profile" className={Homemodule.profileLink}>
+              <div style={styles.avatar}>
+            {name.charAt(0).toUpperCase()}
+          </div>
+              </Link>
+              {/* <span onClick={handleLogout} className={Homemodule.logoutIcon}>
+              <IoIosLogOut />
+              </span> */}
+              </div>
+              ) : (
+  <Link to="/account" className={Homemodule.link} onClick={scrollToTop}>
+    <span><VscAccount /></span>
+  </Link>
+)}
 
           <span className={Homemodule.menu} onClick={() => setMenuOpen((prev) => !prev)}>
             {menuOpen ? <IoIosClose /> : <IoIosMenu />}
@@ -126,4 +130,20 @@ const Navbar = () => {
   );
 };
 
+const styles = {
+  avatar: {
+    width: "30px",
+    height: "30px",
+    borderRadius: "50%",
+    background: "#000000",
+    color: "#fff",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    fontSize: "25px",
+    fontWeight: "600",
+    margin: "0 auto 15px",
+  },
+
+}
 export default Navbar;
